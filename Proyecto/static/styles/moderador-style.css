@@ -1,0 +1,36 @@
+:root{
+    --gris-claro:  #ADADAD;
+    --blanco: #f0f1f1;
+    --rojo:  #D62D2D;
+    --negro: #000000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: var(--negro);
+}
+
+.div-input{
+    width: 40%;
+    height: 40px;
+    background-color: #D62D2D;
+    margin: auto;
+}
+
+.puta{
+    width: 100%;
+    height: 35px;
+    border-radius: 80px;
+    display: flex;
+    padding-left: 50px;
+    font-size: 1.15em;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+}
+

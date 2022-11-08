@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block navegador %}
-    <div class="estilo mi-perfil" ><h2  id="estilo1"> Mi perfil </h2></div>
+    <div class="estilo mi-perfil"><h2  id="estilo1"> Mi perfil </h2></div>
 
     <div class="navegacion-perfil-2">
         <div class="subir-foto" onclick="lineaFoto()">
@@ -25,14 +25,14 @@
 
 
 {% block principal %}
-<div class="subir-foto-perfil">
+<div class="subir-foto-perfil" style="display: none;">
     <div class="seleccionar-foto">
         <input type="file" name="profile-photo" id="photo" style="display:none;" accept="image/png, image/jpeg, image/jpg">
-        <label for="photo" class="style-photo">Seleccionar Foto</label>
+        <label for="photo" class="style-photo" onclick="subirFotoPerfil()">Seleccionar Foto</label>
     </div>
     <hr class="linea-divisoria">
     <div class="eliminar-foto">
-        <label class="style-photo">Eliminar Foto</label>
+        <label class="style-photo" onclick="eliminarFoto()">Eliminar Foto</label>
     </div>
 </div>
 <section class="container">

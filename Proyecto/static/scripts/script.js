@@ -130,5 +130,18 @@ function favorito(element){
 //}
 
 function agregarFotoPerfil(){
-    
+    const element = document.getElementsByClassName("subir-foto-perfil");
+    if (element[0].style.display === "none") {
+        element[0].style.display = "flex";
+      } else {
+        element[0].style.display = "none";
+      }
+}
+
+function eliminarFoto(){
+    agregarFotoPerfil()    
+}
+
+function subirFotoPerfil(){
+    agregarFotoPerfil()
 }

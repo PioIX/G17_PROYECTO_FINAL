@@ -448,7 +448,7 @@ hr{
 }
 
 .subir-foto-perfil{
-    width: 200px;
+    width: 15%;
     height: 60px;
     background-color: var(--blanco);
     position: absolute;
@@ -460,6 +460,10 @@ hr{
 
 .style-photo{
     padding-left: 5px;
+}
+
+.style-photo:hover{
+    cursor:pointer;
 }
 
 .linea-divisoria{

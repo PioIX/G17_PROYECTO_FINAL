@@ -132,4 +132,8 @@ def nuevaImagen():
     elif request.method == "GET":
         return redirect('/home')
 
+@app.route('/moderador', methods=['POST', 'GET'])
+def moderador():
+    return render_template('moderador.html')
+    
 app.run(host='0.0.0.0', port=81)
