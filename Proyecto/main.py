@@ -1,6 +1,8 @@
 from flask import Flask, flash, request, redirect, url_for, render_template, session
 import os # The OS module in Python provides functions for creating and removing a directory (folder),
+from os.path import join, dirname, realpath, abspath
 # fetching its contents, changing and identifying the current directory, etc.
+
 import sqlite3
 
 from werkzeug.utils import secure_filename
@@ -81,15 +83,6 @@ def agregarUsuario():
 @app.route('/home', methods=['POST','GET'])
 def home():
     if request.method == "GET":
-        session["imagen"]         = ""
-        session["nombreRemera"]   = ""
-        session["precioRemera"]   = ""
-        session["nombreAbrigo"]   = ""
-        session["precioAbrigo"]   = ""
-        session["nombrePantalon"] = ""
-        session["precioPanalon"]  = ""
-        session["nombreSneaker"]  = ""
-        session["precioSneaker"]  = ""
         return render_template("base.html")
     elif request.method == "POST":
         return redirect('/home')
@@ -104,25 +97,34 @@ def profile():
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():
     if request.method == "POST":
-        session["imagen"]         = request.files["imagen"]        
-        session["nombreRemera"]   = request.form["nombbreRemera"]
-        session["precioRemera"]   = request.form["precioRemera"]
-        session["nombreAbrigo"]   = request.form["nombreAbrigo"]
-        session["precioAbrigo"]   = request.form["precioAbrigo"]
-        session["nombrePantalon"] = request.form["nombrePantalon"]
-        session["precioPanalon"]  = request.form["precioPantalon"]
-        session["nombreSneaker"]  = request.form["nombreSneaker"]
-        session["precioSneaker"]  = request.form["precioSneaker"]
+        imagen         = request.files["imagen"]        
+        modeloRemera= request.form["modeloRemera"]
+        precioRemera = request.form["precioRemera"]
+        modeloAbrigo = request.form["modeloAbrigo"]
+        precioAbrigo = request.form["precioAbrigo"]
+        modeloPantalon = request.form["modeloPantalon"]
+        precioPantalon = request.form["precioPantalon"]
+        modeloSneaker = request.form["modeloSneaker"]
+        precioSneaker = request.form["precioSneaker"]
 
         #if session["imagen"].filename == '':
             #flash('No selected file')
            #return redirect('/home')
         #else:
-        filename = secure_filename(session["imagen"].filename)
-        session["imagen"].save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print("hola")
+        filename = secure_filename(imagen.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        imagen.save(file_path)
         print(filename)
-        session['img'] = "/static/" + path2 + '/' + filename + ""
-        print(session['img'])
+        #imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #UPLOADS_PATH = join(dirname(realpath(filename)), 'static\img', filename)
+        print(file_path)
+        #imagen.save(app.config['UPLOAD_FOLDER'] + '/' +  filename)
+        print("hola3")
+        print(filename)
+        img = "/static/" + path2 + '/' + filename + ""
+        print("hola4")
+        print(img)
 
         #conn = sqlite3.connect('Publicaciones.db')
         #q = f"""INSERT INTO publicaciones(usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,precioPanalon ,nombreSneaker ,precioSneaker)"""
