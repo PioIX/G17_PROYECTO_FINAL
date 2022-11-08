@@ -113,7 +113,7 @@ body{
     align-items: center;
     color: var(--blanco);
     position: absolute;
-    right: 10px;
+    right: 20px;
 }
 
 .invisible{
@@ -412,6 +412,18 @@ hr{
     margin-bottom: 70px;
 }
 
+.navegacion-perfil-2{
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    color: var(--blanco);
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
 .container{
     width: 100%;
     height: calc(100vh - 53px);
@@ -433,6 +445,29 @@ hr{
 .foto{
     width: 195px;
     height: 255px;
+}
+
+.subir-foto-perfil{
+    width: 200px;
+    height: 60px;
+    background-color: var(--blanco);
+    position: absolute;
+    right: 30px;
+    top:70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.style-photo{
+    padding-left: 5px;
+}
+
+.linea-divisoria{
+    height: 2px;
+    width: 95%;
+    margin: auto;
+    background-color: var(--gris-claro);
+    border: none;
 }
 
 /*-------*/

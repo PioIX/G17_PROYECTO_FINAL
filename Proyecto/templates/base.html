@@ -34,10 +34,15 @@
               </div>
 
               <div class="perfil">
-                <img src="{{url_for('static', filename='img/foto-perfil.jpg')}}" alt="" class="foto-de-perfil-1" onclick="window.location.href='{{ url_for('profile')}}';">
+                <img src="{{url_for('static', filename='img/sin-foto-perfil.jpeg')}}" alt="" class="foto-de-perfil-1" onclick="window.location.href='{{ url_for('profile')}}';">
               </div>
 
-              <div class="flecha-desplegable"></div> <!-- esto todavia no sabemos como hacerlo -->
+              <div class="flecha-desplegable">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <polyline points="6 9 12 15 18 9"></polyline>
+               </svg>
+              </div> <!-- esto todavia no sabemos como hacerlo -->
             </div>
           
         </nav>
@@ -157,7 +162,7 @@
                     <select name="colorRemera" id=""></select>
 
                     
-                    <input type="text" name="precioRemera" id="" class="precio-border">
+                    <input type="number" name="precioRemera" id="" class="precio-border">
                   </div>
 
                   <label for="Abrigo" class="estilo-lables">Abrigo</label>
@@ -167,7 +172,7 @@
 
                     <select name="colorAbrigo" id=""></select>
 
-                    <input type="text" name="precioAbrigo" id="" class="precio-border">
+                    <input type="number" name="precioAbrigo" id="" class="precio-border">
                   </div>
 
                   <label for="Pantalon" class="estilo-lables">Pantalon</label>
@@ -177,7 +182,7 @@
 
                     <select name="colorPantalon" id=""></select>
 
-                    <input type="text" name="precioPantalon" id="" class="precio-border">
+                    <input type="number" name="precioPantalon" id="" class="precio-border">
                   </div>
 
                   <label for="Sneaker"class="estilo-lables">Sneaker</label>
@@ -187,7 +192,7 @@
 
                     <select name="colorSneaker" id=""></select>
 
-                    <input type="text" name="precioSneaker" id="" class="precio-border">
+                    <input type="number" name="precioSneaker" id="" class="precio-border">
                   </div>
 
                 </div>

@@ -2,10 +2,39 @@
 
 {% block navegador %}
     <div class="estilo mi-perfil" ><h2  id="estilo1"> Mi perfil </h2></div>
+
+    <div class="navegacion-perfil-2">
+        <div class="subir-foto" onclick="lineaFoto()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="40" fill="grey" class="bi bi-plus mas" viewBox="0 0 16 14" id="icono-subir-foto">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+        </div>
+
+        <div class="perfil">
+          <img src="{{url_for('static', filename='img/sin-foto-perfil.jpeg')}}" alt="" class="foto-de-perfil-1" onclick="agregarFotoPerfil()">
+        </div>
+
+        <div class="flecha-desplegable">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <polyline points="6 9 12 15 18 9"></polyline>
+             </svg>
+        </div> <!-- esto todavia no sabemos como hacerlo -->
+    </div>
 {% endblock %}
 
 
 {% block principal %}
+<div class="subir-foto-perfil">
+    <div class="seleccionar-foto">
+        <input type="file" name="profile-photo" id="photo" style="display:none;" accept="image/png, image/jpeg, image/jpg">
+        <label for="photo" class="style-photo">Seleccionar Foto</label>
+    </div>
+    <hr class="linea-divisoria">
+    <div class="eliminar-foto">
+        <label class="style-photo">Eliminar Foto</label>
+    </div>
+</div>
 <section class="container">
     <div class="grid-container">
         <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>

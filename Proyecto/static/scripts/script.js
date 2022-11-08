@@ -129,4 +129,6 @@ function favorito(element){
       //}, });
 //}
 
-
+function agregarFotoPerfil(){
+    
+}
