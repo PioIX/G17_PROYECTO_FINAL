@@ -7,9 +7,9 @@ import sqlite3
 
 from werkzeug.utils import secure_filename
 from flask_socketio import SocketIO
-UPLOAD_FOLDER = './Proyecto/static/img'
+UPLOAD_FOLDER = './static/img'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-path = './Proyecto/static/img'
+path = './static/img'
 path2 = 'img'
 
 app = Flask(__name__)
@@ -115,7 +115,7 @@ def nuevaImagen():
             filename = secure_filename(imagen.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             imagen.save(file_path)
-            img = "./static/" + path2 + '/' + filename + ""
+            img = "/static/" + path2 + '/' + filename + ""
         
         print(file_path)
         print(filename)
@@ -125,7 +125,7 @@ def nuevaImagen():
         q = f"""INSERT INTO publicaciones
                 (usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,
                 precioPantalon ,nombreSneaker ,precioSneaker)
-                VALUES('{session["usuario"]}', '{img}', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
+                VALUES('{session["usuario"]}', 'hola', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
                 '{modeloPantalon}', '{precioPantalon}', '{modeloSneaker}', '{precioSneaker}')"""
         conn.execute(q)
         conn.commit()
