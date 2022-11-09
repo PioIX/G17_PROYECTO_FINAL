@@ -250,6 +250,11 @@ hr{
 
 /* SUBIR ARCHIVO*/
 
+.opciones{
+    font-size: larger;
+    font-weight: bolder;
+}
+
 .publicacion{
     width: 100%;
     height: calc(100vh - 10px);
