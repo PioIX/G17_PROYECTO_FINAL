@@ -25,7 +25,7 @@
 
 
 {% block principal %}
-<div class="subir-foto-perfil" style="display: none;">
+<form class="subir-foto-perfil" style="display: none;" method="POST">
     <div class="seleccionar-foto">
         <input type="file" name="profile-photo" id="photo" style="display:none;" accept="image/png, image/jpeg, image/jpg">
         <label for="photo" class="style-photo" onclick="subirFotoPerfil()">Seleccionar Foto</label>
@@ -34,7 +34,7 @@
     <div class="eliminar-foto">
         <label class="style-photo" onclick="eliminarFoto()">Eliminar Foto</label>
     </div>
-</div>
+</form>
 <section class="container">
     <div class="grid-container">
         <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>

@@ -253,6 +253,11 @@ hr{
 .opciones{
     font-size: larger;
     font-weight: bolder;
+
+}
+
+.opciones:hover{
+    background-color: none;
 }
 
 .publicacion{
