@@ -98,14 +98,14 @@ def profile():
 def nuevaImagen():
     if request.method == "POST":
         imagen         = request.files["imagen"]        
-        modeloRemera= request.form["modeloRemera"]
-        precioRemera = request.form["precioRemera"]
-        modeloAbrigo = request.form["modeloAbrigo"]
-        precioAbrigo = request.form["precioAbrigo"]
+        modeloRemera   = request.form["modeloRemera"]
+        precioRemera   = request.form["precioRemera"]
+        modeloAbrigo   = request.form["modeloAbrigo"]
+        precioAbrigo   = request.form["precioAbrigo"]
         modeloPantalon = request.form["modeloPantalon"]
         precioPantalon = request.form["precioPantalon"]
-        modeloSneaker = request.form["modeloSneaker"]
-        precioSneaker = request.form["precioSneaker"]
+        modeloSneaker  = request.form["modeloSneaker"]
+        precioSneaker  = request.form["precioSneaker"]
 
         if imagen.filename == '':
             flash('No selected file')
@@ -124,8 +124,8 @@ def nuevaImagen():
         conn = sqlite3.connect('Publicaciones.db')
         q = f"""INSERT INTO publicaciones
                 (usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,
-                precioPanalon ,nombreSneaker ,precioSneaker)
-                VALUES('{session["usuario"]}', '{imagen}', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
+                precioPantalon ,nombreSneaker ,precioSneaker)
+                VALUES('{session["usuario"]}', 'hola', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
                 '{modeloPantalon}', '{precioPantalon}', '{modeloSneaker}', '{precioSneaker}')"""
         conn.execute(q)
         conn.commit()
