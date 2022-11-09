@@ -23,7 +23,8 @@ app.secret_key = "asdasdazsdawefdfascacs"
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == "GET":
-        return render_template("login.html", login = False)
+        session['fotoDePerfilDefault'] = path + '/sin-foto-perfil.jpeg'
+        return render_template("login.html", login = False, fotoDePerfil = session['fotoDePerfilDefault'])
     elif request.method == "POST":  
         return redirect('/')
 
@@ -41,12 +42,11 @@ def checkearUsuario():
                 and username = '{session['usuario']}'
                 """
         resu = conn.execute(q)
-
         if resu.fetchone():
             return redirect('/home')
         else:
             flash('Usuario o contraseña incorrectos')
-            return render_template("login.html", login = True)
+            return render_template("login.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -64,7 +64,7 @@ def agregarUsuario():
         session['mail'] = request.form['e-mail']
         session["nombre"] = request.form['name']
         session['mail'] = session['mail'].replace("@", ".")
-
+        
         conn = sqlite3.connect('SocialMedia.db')
         q = f"""INSERT INTO Usuarios(nombre, contraseña, mail, username) 
                 VALUES('{session["nombre"]}', '{session['contraseña']}', '{session['mail']}', '{session['usuario']}')"""
@@ -90,7 +90,7 @@ def home():
 @app.route('/profile', methods=['POST','GET'])
 def profile():
     if request.method == "GET":
-        return render_template("profile.html")
+        return render_template("profile.html", fotoDePerfil = session['fotoDePerfilDefault'])
     elif request.method == "POST":
         return redirect('/home')
 
@@ -107,27 +107,30 @@ def nuevaImagen():
         modeloSneaker = request.form["modeloSneaker"]
         precioSneaker = request.form["precioSneaker"]
 
-        #if session["imagen"].filename == '':
-            #flash('No selected file')
-           #return redirect('/home')
-        #else:
-        print("hola")
-        filename = secure_filename(imagen.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        imagen.save(file_path)
-        print(filename)
-        #imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        #UPLOADS_PATH = join(dirname(realpath(filename)), 'static\img', filename)
+        if imagen.filename == '':
+            flash('No selected file')
+            return redirect('/home')
+        else:
+            print("hola")
+            filename = secure_filename(imagen.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            imagen.save(file_path)
+            img = "/static/" + path2 + '/' + filename + ""
+        
         print(file_path)
-        #imagen.save(app.config['UPLOAD_FOLDER'] + '/' +  filename)
-        print("hola3")
         print(filename)
-        img = "/static/" + path2 + '/' + filename + ""
-        print("hola4")
         print(img)
 
-        #conn = sqlite3.connect('Publicaciones.db')
-        #q = f"""INSERT INTO publicaciones(usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,precioPanalon ,nombreSneaker ,precioSneaker)"""
+        conn = sqlite3.connect('Publicaciones.db')
+        q = f"""INSERT INTO publicaciones
+                (usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,
+                precioPanalon ,nombreSneaker ,precioSneaker)
+                VALUES('{session["usuario"]}', '{imagen}', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
+                '{modeloPantalon}', '{precioPantalon}', '{modeloSneaker}', '{precioSneaker}')"""
+        conn.execute(q)
+        conn.commit()
+        conn.close()
+        
         return redirect('/home')
     elif request.method == "GET":
         return redirect('/home')
