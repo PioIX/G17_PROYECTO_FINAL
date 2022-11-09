@@ -257,7 +257,7 @@ hr{
 }
 
 .opciones:hover{
-    background-color: none;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .publicacion{
