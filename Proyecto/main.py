@@ -139,8 +139,37 @@ def nuevaImagen():
 def mensajes():
     return render_template('mensajes.html')
 
-@app.route('/moderador', methods=['POST', 'GET'])
+@app.route('/admin', methods=['POST', 'GET'])
 def moderador():
     return render_template('moderador.html')
+
+#@socketio.on('connect')
+#def test_connect():
+#    print('Client connected')
+ 
+#@socketio.on('disconnect')
+#def test_disconnect():
+#    print('Client disconnected')
+
+#@socketio.on('join')
+#def on_join(data):
+#    username = session.get("username")
+#    room = data['room']
+#    session['room'] = data['room']
+#    join_room(room)
+#    print(username + ' has entered the room.')
+#    send(username + ' has entered the room.', to=room)
+
+#@socketio.on('recibirMsg')
+#def handle_message(json):
+#    json = str(session['username']) + ": " + str(json)
+#    emit('enviarMsg', str(json), to=session['room'])
+
+#@socketio.on('leave')
+#def on_leave(data):
+#    username = session.get("username")
+#    room = data["room"]
+#    leave_room(room)
+#    send(username + ' has left the room.', to=room)
 
 app.run(host='0.0.0.0', port=81)
