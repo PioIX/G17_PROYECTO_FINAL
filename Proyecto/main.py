@@ -23,9 +23,9 @@ app.secret_key = "asdasdazsdawefdfascacs"
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == "GET":
-        session['fotoDePerfilDefault'] = path + '/sin-foto-perfil.jpeg'
-        return render_template("login.html", login = False, fotoDePerfil = session['fotoDePerfilDefault'])
-    elif request.method == "POST":  
+        session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
+        return render_template("login.html", login = False)
+    elif request.method == "POST":
         return redirect('/')
 
 @app.route('/usuarioIngresado', methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def agregarUsuario():
 @app.route('/home', methods=['POST','GET'])
 def home():
     if request.method == "GET":
-        return render_template("base.html")
+        return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'])
     elif request.method == "POST":
         return redirect('/home')
 
@@ -142,5 +142,5 @@ def mensajes():
 @app.route('/moderador', methods=['POST', 'GET'])
 def moderador():
     return render_template('moderador.html')
-    
+
 app.run(host='0.0.0.0', port=81)
