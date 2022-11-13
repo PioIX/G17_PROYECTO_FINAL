@@ -135,6 +135,10 @@ def nuevaImagen():
     elif request.method == "GET":
         return redirect('/home')
 
+@app.route('/mensajes')
+def mensajes():
+    return render_template('mensajes.html')
+
 @app.route('/moderador', methods=['POST', 'GET'])
 def moderador():
     return render_template('moderador.html')
