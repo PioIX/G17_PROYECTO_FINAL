@@ -69,7 +69,7 @@ def agregarUsuario():
         session["nombre"] = request.form['name']
         session['mail'] = session['mail'].replace("@", ".")
 
-        # Me fijo que el usuario no este usado 
+        # Checkeamos que el usuario no este usado
         conn = sqlite3.connect('SocialMedia.db')
         q = f"""SELECT username FROM Usuarios"""
         x = conn.execute(q)
@@ -82,7 +82,7 @@ def agregarUsuario():
                 flash('Nombre de usuario ya ingresado')
                 return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
         
-        # Me fijo que el mail no este usado 
+        # Checkeamos que el mail no este usado 
         q2 = f"""SELECT mail FROM Usuarios"""
         x2 = conn.execute(q2)
         listaMails = x2.fetchall()
