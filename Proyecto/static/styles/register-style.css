@@ -90,3 +90,9 @@ hr{
     background-color: var(--gris-claro);
     transition: .6s;
 }
+
+.usuarioNoLogueado{
+    margin-top: 15px;
+    color: var(--rojo);
+    font-weight: bolder;
+}

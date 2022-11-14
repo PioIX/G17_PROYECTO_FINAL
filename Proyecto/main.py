@@ -42,8 +42,12 @@ def checkearUsuario():
                 and username = '{session['usuario']}'
                 """
         resu = conn.execute(q)
+        
         if resu.fetchone():
-            return redirect('/home')
+            if session['usuario'] == "elmascapodelproyecto":
+                return redirect('/admin')
+            else:
+                return redirect('/home')
         else:
             flash('Usuario o contraseña incorrectos')
             return render_template("login.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
@@ -64,8 +68,33 @@ def agregarUsuario():
         session['mail'] = request.form['e-mail']
         session["nombre"] = request.form['name']
         session['mail'] = session['mail'].replace("@", ".")
-        
+
+        # Me fijo que el usuario no este usado 
         conn = sqlite3.connect('SocialMedia.db')
+        q = f"""SELECT username FROM Usuarios"""
+        x = conn.execute(q)
+        listaUsuarios = x.fetchall()
+        print(listaUsuarios)
+        print(len(listaUsuarios))
+
+        for i in range(len(listaUsuarios)):
+            if session['usuario'] == listaUsuarios[i][0]:
+                flash('Nombre de usuario ya ingresado')
+                return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+        
+        # Me fijo que el mail no este usado 
+        q2 = f"""SELECT mail FROM Usuarios"""
+        x2 = conn.execute(q2)
+        listaMails = x2.fetchall()
+        print(listaMails)
+        print(len(listaMails))
+
+        for i in range(len(listaMails)):
+            if session['mail'] == listaMails[i][0]:
+                flash('Email ya regsitrado, pruebe con otro')
+                return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+        
+        # Inserto los datos en la tabla de Usuarios
         q = f"""INSERT INTO Usuarios(nombre, contraseña, mail, username) 
                 VALUES('{session["nombre"]}', '{session['contraseña']}', '{session['mail']}', '{session['usuario']}')"""
         conn.execute(q)
@@ -73,7 +102,6 @@ def agregarUsuario():
         x = f"""CREATE TABLE IF NOT EXISTS {session['usuario']} 
             (publicacion TEXT);"""
         conn.execute(x)
-
         conn.commit()
         conn.close()
         return redirect('/')
@@ -171,5 +199,8 @@ def moderador():
 #    room = data["room"]
 #    leave_room(room)
 #    send(username + ' has left the room.', to=room)
+
+#if __name__ == '__main__':
+#    socketio.run(app, host='0.0.0.0')
 
 app.run(host='0.0.0.0', port=81)
