@@ -121,7 +121,7 @@ def home():
         
         conn2 = sqlite3.connect('SocialMedia.db')
         q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE nombre = '{session['usuario']}'"""
+                WHERE username = '{session['usuario']}'"""
         x2 = conn2.execute(q2)
         
         imgPerfil = x2.fetchall()
@@ -160,26 +160,24 @@ def nuevaFoto():
             filename = secure_filename(foto.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             foto.save(file_path)
-            img = "./static/" + path2 + '/' + filename + ""
     
-    
+        imgPerfil = "/static/img/" + foto.filename
+        print(imgPerfil)
+
         conn = sqlite3.connect('SocialMedia.db')
-        q = f"""INSERT INTO Usuarios
-                (fotoPerfil)
-                VALUES( '{img}') WHERE nombre = '{session['usuario']}'"""
+        q = f"""UPDATE Usuarios
+                SET fotoPerfil  = '{imgPerfil}'
+                WHERE username = '{session['usuario']}'"""
         conn.execute(q)
         conn.commit()
         conn.close()
 
-        session['fotoDePerfilDefault'] = img
+        session['fotoDePerfilDefault'] = imgPerfil
         
         return redirect('/profile')
     elif request.method == "GET":
         return redirect('/profile')
 
-    
-          
-             
 
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():

@@ -25,7 +25,7 @@
 
 
 {% block principal %}
-<form action = "SubirFotoPerfil" class="subir-foto-perfil" style="display: none;" method="POST">
+<form action = "/subirFotoPerfil" id="form-fotoPerfil" class="subir-foto-perfil" style="display: none;" method="POST" enctype="multipart/form-data">
     <div class="seleccionar-foto">
         <input type="file" name="profile-photo" id="photo" style="display:none;" accept="image/png, image/jpeg, image/jpg">
         <label for="photo" class="style-photo" onclick="subirFotoPerfil()">Seleccionar Foto</label>
@@ -33,6 +33,10 @@
     <hr class="linea-divisoria">
     <div class="eliminar-foto">
         <label class="style-photo" onclick="eliminarFoto()">Eliminar Foto</label>
+    </div>
+    <hr class="linea-divisoria">
+    <div class="eliminar-foto">
+        <input type="submit" value="Actualizar Foto">
     </div>
 </form>
 <section class="container">
