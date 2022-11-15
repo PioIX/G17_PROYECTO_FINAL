@@ -156,6 +156,7 @@ main{
     height: calc(100vh - 70px);
     
 }
+
 .contenedor-main{
     width: 100%;
     height: auto;
@@ -483,7 +484,7 @@ hr{
 
 .subir-foto-perfil{
     width: 15%;
-    height: 70px;
+    height: 90px;
     background-color: var(--blanco);
     position: absolute;
     right: 30px;
@@ -499,6 +500,15 @@ hr{
 
 .style-photo:hover{
     cursor:pointer;
+    font-weight: bolder;
+    transition: .1s;
+}
+
+.style-input{
+    border: none;
+    background-color: var(--gris-claro);
+    width: 100%;
+    text-align: left;
 }
 
 
