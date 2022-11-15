@@ -102,7 +102,7 @@ def agregarUsuario():
 
         #x = f"""CREATE TABLE IF NOT EXISTS {session['usuario']} 
         #    (publicacion TEXT);"""
-        conn.execute(x)
+        #conn.execute(x)
         conn.commit()
         conn.close()
         return redirect('/')
@@ -200,7 +200,16 @@ def nuevaImagen():
         precioPantalon = request.form["precioPantalon"]
         modeloSneaker  = request.form["modeloSneaker"]
         precioSneaker  = request.form["precioSneaker"]
-
+        colorRemera    = request.form["colorRemera"]
+        print(colorRemera)
+        colorAbrigo    = request.form["colorAbrigo"]
+        print(colorAbrigo) 
+        colorPantalon  = request.form["colorPantalon"]
+        print(colorPantalon)
+        colorSneaker   = request.form["colorSneaker"]
+        print(colorSneaker)
+        
+        
         if imagen.filename == '':
             flash('No selected file')
             return redirect('/home')
@@ -209,18 +218,39 @@ def nuevaImagen():
             filename = secure_filename(imagen.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
             imagen.save(file_path)
-            img = "./static/" + path2 + '/publicacion' + filename + ""
+            img = "./static/" + path2 + '/' + filename + ""
         
-        print(file_path)
-        print(filename)
-        print(img)
+        precioTotal = 0
+        
+        if precioSneaker != "":
+            pass
+        else:
+            precioSneaker = 0
+        
+        if precioRemera != "":
+            pass
+        else:
+            precioRemera = 0
+        
+        if precioAbrigo != "":
+            pass
+        else:
+            precioAbrigo = 0
+            
+        if precioPantalon != "":
+            pass
+        else:
+            precioPantalon = 0
+        
+        precioTotal = int(precioAbrigo) + int(precioPantalon) + int(precioRemera) + int(precioSneaker)
 
         conn = sqlite3.connect('Publicaciones.db')
         q = f"""INSERT INTO publicaciones
                 (usuario, rutaImagen,nombreRemera , precioRemera,nombreAbrigo , precioAbrigo, nombrePantalon,
-                precioPantalon ,nombreSneaker ,precioSneaker)
+                precioPantalon ,nombreSneaker ,precioSneaker, colorRemera, colorAbrigo, colorPantalon, colorSneaker, precioTotal)
                 VALUES('{session["usuario"]}', '{img}', '{modeloRemera}', '{precioRemera}', '{modeloAbrigo}', '{precioAbrigo}', 
-                '{modeloPantalon}', '{precioPantalon}', '{modeloSneaker}', '{precioSneaker}')"""
+                '{modeloPantalon}', '{precioPantalon}', '{modeloSneaker}', '{precioSneaker}', '{colorRemera}', '{colorAbrigo}', 
+                '{colorPantalon}', '{colorSneaker}', '{precioTotal}')"""
         conn.execute(q)
         conn.commit()
         conn.close()
