@@ -23,7 +23,6 @@ app.secret_key = "asdasdazsdawefdfascacs"
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == "GET":
-        session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -120,7 +119,24 @@ def home():
         print(listaPublicaciones)
         print(len(listaPublicaciones))
         
-
+        conn2 = sqlite3.connect('SocialMedia.db')
+        q2 = f"""SELECT fotoPerfil from Usuarios
+                WHERE nombre = '{session['usuario']}'"""
+        x2 = conn2.execute(q2)
+        
+        imgPerfil = x2.fetchall()
+        print(imgPerfil[0][0])
+        
+        if imgPerfil[0][0] == None:
+            session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
+        else:
+           fotoDePerfil = imgPerfil[0][0]
+           session['fotoDePerfilDefault'] = fotoDePerfil
+        
+        print(fotoDePerfil)
+        print("session |> ")
+        print(session['fotoDePerfilDefault'])
+            
         return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'], listaPublicaciones = listaPublicaciones)
     elif request.method == "POST":
         return redirect('/home')
