@@ -49,7 +49,7 @@ def checkearUsuario():
                 return redirect('/home')
         else:
             flash('Usuario o contraseña incorrectos')
-            return render_template("login.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+            return render_template("login.html", login = True)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -79,7 +79,7 @@ def agregarUsuario():
         for i in range(len(listaUsuarios)):
             if session['usuario'] == listaUsuarios[i][0]:
                 flash('Nombre de usuario ya ingresado')
-                return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+                return render_template("register.html", login = True)
         
         # Checkeamos que el mail no este usado 
         q2 = f"""SELECT mail FROM Usuarios"""
@@ -170,7 +170,13 @@ def nuevaFoto():
         conn.execute(q)
         conn.commit()
         conn.close()
+
+        session['fotoDePerfilDefault'] = img
         
+        return redirect('/profile')
+    elif request.method == "GET":
+        return redirect('/profile')
+
     
           
              
