@@ -227,6 +227,12 @@ def mensajes():
     elif request.method == "POST":
         return redirect('/mensajes')
 
+@app.route('/buscarNombre', methods=['POST'])
+def buscarUsuario():
+    pass
+    #pasar todos los usuarios con la linea "WHERE (usuario de la base de datos) LIKE "%valorInput%"
+
+
 @app.route('/admin', methods=['POST', 'GET'])
 def moderador():
     if request.method == "GET":
@@ -236,6 +242,7 @@ def moderador():
             return redirect('/')
     elif request.method == "POST":
         return redirect('/')
+
 
 #@socketio.on('connect')
 #def test_connect():

@@ -68,7 +68,7 @@
               <line x1="19" y1="18" x2="20" y2="18"></line>
            </svg>
 
-           <input type="text" name="" id="" class="nav-bar">
+           <input type="text" name="" id="buscador" class="nav-bar" onkeyup="buscarPorNombre()">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search icono-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -83,13 +83,15 @@
                 <img src="{{listaPublicaciones[i][2]}}" alt="" class="estilo-imagenes" id="info-imagen" >
                 <div hidden name="div-agregado" class="claseParaProbar">
                   <div id="caracteristicas">
-                    <h3 class="info-foto">Remera: <span style="font-weight: 300;">{{listaPublicaciones[i][3]}} &nbsp; &nbsp; ${{listaPublicaciones[i][4]}}</span></h3>
+                    <h3 class="info-foto">Remera <span style="font-weight: 900;">{{listaPublicaciones[i][3]}} &nbsp; &nbsp; ${{listaPublicaciones[i][4]}}</span></h3>
                     </br>
-                    <h3 class="info-foto"><strong>Abrigo:</strong> {{listaPublicaciones[i][5]}} &nbsp; &nbsp; ${{listaPublicaciones[i][6]}}</h3>
+                    <h3 class="info-foto">Abrigo <span style="font-weight: 900;">{{listaPublicaciones[i][5]}} &nbsp; &nbsp; ${{listaPublicaciones[i][6]}}</span></h3>
                     </br>
-                    <h3 class="info-foto"><strong>Pantalon:</strong> {{listaPublicaciones[i][7]}} &nbsp; &nbsp; ${{listaPublicaciones[i][8]}}</h3>
+                    <h3 class="info-foto">Pantalon <span style="font-weight: 300;">{{listaPublicaciones[i][7]}} &nbsp; &nbsp; ${{listaPublicaciones[i][8]}}</span></h3>
                     </br>
-                    <h3 class="info-foto"><strong>Sneaker:</strong> {{listaPublicaciones[i][9]}} &nbsp; &nbsp; ${{listaPublicaciones[i][10]}}</h3>
+                    <h3 class="info-foto">Sneaker <span style="font-weight: 300;">{{listaPublicaciones[i][9]}} &nbsp; &nbsp; ${{listaPublicaciones[i][10]}}</span></h3>
+                    </br>
+                    <hr class="linea-total">
                     </br>
                     <h3 style="text-align: center;">Total: <!--variable unica para el precio total de esta publicacion--> 120000</h3>
                   </div>

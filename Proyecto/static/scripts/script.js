@@ -152,3 +152,19 @@ function colorElegido(element, cual){
     selectedValue = colorE.options[colorE.selectedIndex]
     colorE.style.backgroundColor = selectedValue.style.backgroundColor;
 }
+
+function buscarPorNombre() {
+    var valorInput = document.getElementById("buscador").value;
+    $.ajax({ 
+        url:"/buscarNombre", 
+        type:"POST", 
+        data: {"value":valorInput},    
+        success: function(){
+            
+        }, 
+        error: function(error){ 
+          console.log(error); 
+      }, 
+    });
+
+}

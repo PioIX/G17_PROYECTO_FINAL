@@ -166,6 +166,12 @@ main{
     
 }
 
+.linea-total{
+    height: 1px;
+    width: 90%;
+    margin: auto;
+}
+
 .imagenes{
     width: 50%;
     color:var(--blanco);
