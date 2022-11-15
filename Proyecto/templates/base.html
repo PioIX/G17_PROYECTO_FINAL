@@ -100,7 +100,11 @@
               <div class="user-info">
     
                 <div class="foto-nombre-usuario">
-                  <img src="{{url_for('static', filename='img/foto-perfil.jpg')}}" alt="" class="foto-de-perfil">
+                  {% for i in range(listaUsuarios|length) %}
+                    {% if listaPublicaciones[i][1] == listaUsuarios[i][3] %}
+                      <img src="{{listaCompleta[i][4]}}" alt="" class="foto-de-perfil">
+                    {%endif%}
+                  {%endfor%}
                   <p class="estilo-nombre-usuario"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
                 </div>
                 

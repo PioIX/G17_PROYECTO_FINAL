@@ -8,7 +8,7 @@ import sqlite3
 from werkzeug.utils import secure_filename
 from flask_socketio import SocketIO
 UPLOAD_FOLDER_FotoPerfil = './Proyecto/static/img/perfil'
-UPLOAD_FOLDER_Publicacion = './Proyecto/static/img/publicacion'
+UPLOAD_FOLDER_Publicacion = './Proyecto/static/img'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 pathFotoPerfil = './Proyecto/static/img'
 path2 = 'img'
@@ -93,15 +93,15 @@ def agregarUsuario():
         for i in range(len(listaMails)):
             if session['mail'] == listaMails[i][0]:
                 flash('Email ya regsitrado, pruebe con otro')
-                return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+                return render_template("register.html", login = True)
         
         # Inserto los datos en la tabla de Usuarios
         q = f"""INSERT INTO Usuarios(nombre, contraseña, mail, username, fotoPerfil) 
                 VALUES('{session["nombre"]}', '{session['contraseña']}', '{session['mail']}', '{session['usuario']}', '/static/img/sin-foto-perfil.jpeg')"""
         conn.execute(q)
 
-        x = f"""CREATE TABLE IF NOT EXISTS {session['usuario']} 
-            (publicacion TEXT);"""
+        #x = f"""CREATE TABLE IF NOT EXISTS {session['usuario']} 
+        #    (publicacion TEXT);"""
         conn.execute(x)
         conn.commit()
         conn.close()
@@ -130,7 +130,15 @@ def home():
         print(imgPerfil[0][0])
         fotoDePerfil = imgPerfil[0][0]
 
-        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones)
+        q3 = f"""SELECT username from Usuarios"""
+        x3 = conn2.execute(q3)
+        listaUsuarios = x3.fetchall()
+        
+        q4 = f"""SELECT * from Usuarios"""
+        x4 = conn2.execute(q4)
+        listaCompleta = x4.fetchall()
+        
+        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaUsuarios = listaUsuarios, listaCompleta = listaCompleta)
     elif request.method == "POST":
         return redirect('/home')
 
@@ -164,7 +172,7 @@ def nuevaFoto():
             file_path = os.path.join(app.config['UPLOAD_FOLDER_FotoPerfil'], filename)
             foto.save(file_path)
     
-        imgPerfil = "/static/img/" + foto.filename
+        imgPerfil = "/static/img/perfil/" + foto.filename
         print(imgPerfil)
 
         conn = sqlite3.connect('SocialMedia.db')
@@ -201,7 +209,7 @@ def nuevaImagen():
             filename = secure_filename(imagen.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
             imagen.save(file_path)
-            img = "./static/" + path2 + '/' + filename + ""
+            img = "./static/" + path2 + '/publicacion' + filename + ""
         
         print(file_path)
         print(filename)
