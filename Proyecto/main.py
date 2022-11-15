@@ -49,7 +49,7 @@ def checkearUsuario():
                 return redirect('/home')
         else:
             flash('Usuario o contraseña incorrectos')
-            return render_template("login.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+            return render_template("login.html", login = True)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -79,7 +79,7 @@ def agregarUsuario():
         for i in range(len(listaUsuarios)):
             if session['usuario'] == listaUsuarios[i][0]:
                 flash('Nombre de usuario ya ingresado')
-                return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
+                return render_template("register.html", login = True)
         
         # Checkeamos que el mail no este usado 
         q2 = f"""SELECT mail FROM Usuarios"""
@@ -121,7 +121,7 @@ def home():
         
         conn2 = sqlite3.connect('SocialMedia.db')
         q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE nombre = '{session['usuario']}'"""
+                WHERE username = '{session['usuario']}'"""
         x2 = conn2.execute(q2)
         
         imgPerfil = x2.fetchall()
@@ -160,20 +160,24 @@ def nuevaFoto():
             filename = secure_filename(foto.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             foto.save(file_path)
-            img = "./static/" + path2 + '/' + filename + ""
     
-    
+        imgPerfil = "/static/img/" + foto.filename
+        print(imgPerfil)
+
         conn = sqlite3.connect('SocialMedia.db')
-        q = f"""INSERT INTO Usuarios
-                (fotoPerfil)
-                VALUES( '{img}') WHERE nombre = '{session['usuario']}'"""
+        q = f"""UPDATE Usuarios
+                SET fotoPerfil  = '{imgPerfil}'
+                WHERE username = '{session['usuario']}'"""
         conn.execute(q)
         conn.commit()
         conn.close()
+
+        session['fotoDePerfilDefault'] = imgPerfil
         
-    
-          
-             
+        return redirect('/profile')
+    elif request.method == "GET":
+        return redirect('/profile')
+
 
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():
