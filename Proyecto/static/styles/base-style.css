@@ -192,15 +192,10 @@ main{
 
 #caracteristicas{
     width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    text-align: center;
 }
 
-.info-foto{
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .user-info{
     width: 400px;

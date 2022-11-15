@@ -133,7 +133,6 @@ def home():
            fotoDePerfil = imgPerfil[0][0]
            session['fotoDePerfilDefault'] = fotoDePerfil
         
-        print(fotoDePerfil)
         print("session |> ")
         print(session['fotoDePerfilDefault'])
             
