@@ -143,7 +143,7 @@ function eliminarFoto(){
 }
 
 function subirFotoPerfil(){
-    agregarFotoPerfil()
+    
 }
 
 function colorElegido(element, cual){
