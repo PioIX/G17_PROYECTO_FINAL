@@ -18,6 +18,17 @@ function load() {
 
 }
 
+function menuMini(){
+    let rotar = document.getElementById("flecha1");
+    rotar.style.transform = 'rotate(180deg)'; //rotar devuelta a posicion original
+    const element = document.getElementById("log-out");
+    if (element.style.display === "none") {
+        element.style.display = "flex";
+      } else {
+        element.style.display = "none";
+      }
+}
+
 function agregarDiv(element) {
     console.log(element);
     element.children[1].classList.toggle("claseParaProbar");
@@ -64,6 +75,15 @@ function lineaFoto(){
     ocultarBusqueda();
     mostrarSubirPublicacion();
 }
+
+function ocultarPerfil(){
+    document.getElementsByClassName("container")[0].style.display = 'none';
+    document.getElementsByClassName("subir-foto-perfil")[0].style.display = 'none';
+    document.getElementsByClassName("estilo mi-perfil")[0].style.display = 'none';
+    document.getElementsByClassName("navegacion-perfil-2")[0].style.display = 'none';
+}
+
+
 
 function ocultarSubirPublicacion() {
     const div = document.getElementsByClassName("publicacion");

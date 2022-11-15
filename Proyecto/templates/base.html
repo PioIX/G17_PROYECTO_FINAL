@@ -36,12 +36,23 @@
                 <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" onclick="window.location.href='{{ url_for('profile')}}';">
               </div>
 
-              <div class="flecha-desplegable">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <div class="flecha-desplegable" id="desplegable" onclick="menuMini()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="flecha1">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                   <polyline points="6 9 12 15 18 9"></polyline>
                </svg>
-              </div> <!-- esto todavia no sabemos como hacerlo -->
+              </div>
+              <form class="log-out" method="POST" style="display: none;" id="log-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                  <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+               </svg>
+              </form>
             </div>
           
         </nav>
@@ -113,7 +124,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                       <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
-                  </svg>
+                    </svg>
                   </div>
                   <div class="icono-enviar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="enviar">

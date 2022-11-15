@@ -27,7 +27,7 @@ body{
 }
 
 .clase-logo{
-    height: 45px;
+    height: 50px;
     width: 140px;
 }
 
@@ -131,11 +131,27 @@ body{
     display: flex;
     width: 100px;
     justify-content: space-between;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
     color: var(--blanco);
     position: absolute;
-    right: 20px;
+    right: 40px;
+}
+
+.log-out{
+    background-color: var(--blanco);
+    width: 30px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -30px;
+    top: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .invisible{
@@ -238,6 +254,7 @@ main{
     border-radius: 50%;
     height: 35px;
     width: 35px;
+    border: var(--blanco) 2px solid;
 }
 
 .foto-de-perfil-1:hover{
@@ -450,7 +467,7 @@ hr{
 
 .navegacion-perfil-2{
     display: flex;
-    width: 100px;
+    width: 80px;
     justify-content: space-between;
     gap: 10px;
     align-items: center;
@@ -487,7 +504,7 @@ hr{
     height: 90px;
     background-color: var(--blanco);
     position: absolute;
-    right: 30px;
+    right: 60px;
     top:70px;
     display: flex;
     flex-direction: column;
