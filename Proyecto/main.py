@@ -7,13 +7,15 @@ import sqlite3
 
 from werkzeug.utils import secure_filename
 from flask_socketio import SocketIO
-UPLOAD_FOLDER = './Proyecto/static/img'
+UPLOAD_FOLDER_FotoPerfil = './Proyecto/static/img'
+UPLOAD_FOLDER_Publicacion = './Proyecto/static/img'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-path = './Proyecto/static/img'
+pathFotoPerfil = './Proyecto/static/img'
 path2 = 'img'
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER_FotoPerfil'] = UPLOAD_FOLDER_FotoPerfil
+app.config['UPLOAD_FOLDER_Publicacion'] = UPLOAD_FOLDER_Publicacion
 app.secret_key = "asdasdazsdawefdfascacs"
 #socketio = SocketIO(app)
 
@@ -94,8 +96,8 @@ def agregarUsuario():
                 return render_template("register.html", login = True, fotoDePerfil = session['fotoDePerfilDefault'])
         
         # Inserto los datos en la tabla de Usuarios
-        q = f"""INSERT INTO Usuarios(nombre, contraseña, mail, username) 
-                VALUES('{session["nombre"]}', '{session['contraseña']}', '{session['mail']}', '{session['usuario']}')"""
+        q = f"""INSERT INTO Usuarios(nombre, contraseña, mail, username, fotoPerfil) 
+                VALUES('{session["nombre"]}', '{session['contraseña']}', '{session['mail']}', '{session['usuario']}', '/static/img/sin-foto-perfil.jpeg')"""
         conn.execute(q)
 
         x = f"""CREATE TABLE IF NOT EXISTS {session['usuario']} 
@@ -126,24 +128,25 @@ def home():
         
         imgPerfil = x2.fetchall()
         print(imgPerfil[0][0])
-        
-        if imgPerfil[0][0] == None:
-            session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
-        else:
-           fotoDePerfil = imgPerfil[0][0]
-           session['fotoDePerfilDefault'] = fotoDePerfil
-        
-        print("session |> ")
-        print(session['fotoDePerfilDefault'])
-            
-        return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'], listaPublicaciones = listaPublicaciones)
+        fotoDePerfil = imgPerfil[0][0]
+
+        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones)
     elif request.method == "POST":
         return redirect('/home')
 
 @app.route('/profile', methods=['POST','GET'])
 def profile():
     if request.method == "GET":
-        return render_template("profile.html", fotoDePerfil = session['fotoDePerfilDefault'])
+        conn2 = sqlite3.connect('SocialMedia.db')
+        q2 = f"""SELECT fotoPerfil from Usuarios
+                WHERE username = '{session['usuario']}'"""
+        x2 = conn2.execute(q2)
+        
+        imgPerfil = x2.fetchall()
+        print(imgPerfil[0][0])
+        fotoDePerfil = imgPerfil[0][0]
+
+        return render_template("profile.html", fotoDePerfil = fotoDePerfil)
     elif request.method == "POST":
         return redirect('/profile')
 
@@ -158,7 +161,7 @@ def nuevaFoto():
         else:
             print("hola")
             filename = secure_filename(foto.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER_FotoPerfil'], filename)
             foto.save(file_path)
     
         imgPerfil = "/static/img/" + foto.filename
@@ -171,8 +174,6 @@ def nuevaFoto():
         conn.execute(q)
         conn.commit()
         conn.close()
-
-        session['fotoDePerfilDefault'] = imgPerfil
         
         return redirect('/profile')
     elif request.method == "GET":
@@ -198,7 +199,7 @@ def nuevaImagen():
         else:
             print("hola")
             filename = secure_filename(imagen.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
             imagen.save(file_path)
             img = "./static/" + path2 + '/' + filename + ""
         
