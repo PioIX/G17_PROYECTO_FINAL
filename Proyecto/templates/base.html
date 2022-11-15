@@ -77,19 +77,19 @@
            </svg>
 
           </div>
-          {% for i in range (10)%}
+          {% for i in range(listaPublicaciones|length) %}
             <div class="contenedor-main">
               <div class="imagenes" onclick="agregarDiv(this)">
-                <img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="estilo-imagenes" id="info-imagen" >
+                <img src="{{listaPublicaciones[i][2]}}" alt="" class="estilo-imagenes" id="info-imagen" >
                 <div hidden name="div-agregado" class="claseParaProbar">
                   <div id="caracteristicas">
-                    <h3><strong>Remera: </strong>variable &nbsp; &nbsp; precio</h3>
+                    <h3><strong>Remera: {{listaPublicaciones[i][3]}}</strong> &nbsp; &nbsp; precio: {{listaPublicaciones[i][4]}}</h3>
                     </br>
-                    <h3><strong>Remera: </strong>variable &nbsp; &nbsp; precio</h3>
+                    <h3><strong>Remera: {{listaPublicaciones[i][5]}}</strong> &nbsp; &nbsp; precio: {{listaPublicaciones[i][6]}}</h3>
                     </br>
-                    <h3><strong>Remera: </strong>variable &nbsp; &nbsp; precio</h3>
+                    <h3><strong>Remera: {{listaPublicaciones[i][7]}}</strong> &nbsp; &nbsp; precio: {{listaPublicaciones[i][8]}}</h3>
                     </br>
-                    <h3><strong>Remera: </strong>variable &nbsp; &nbsp; precio</h3>
+                    <h3><strong>Remera: {{listaPublicaciones[i][9]}}</strong> &nbsp; &nbsp; precio: {{listaPublicaciones[i][10]}}</h3>
                   </div>
                 </div>
               </div>
@@ -97,7 +97,7 @@
     
                 <div class="foto-nombre-usuario">
                   <img src="{{url_for('static', filename='img/foto-perfil.jpg')}}" alt="" class="foto-de-perfil">
-                  <p class="estilo-nombre-usuario"><i>@smithmike</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
+                  <p class="estilo-nombre-usuario"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
                 </div>
                 
                 <div class="iconos">

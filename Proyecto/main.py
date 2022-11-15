@@ -111,7 +111,17 @@ def agregarUsuario():
 @app.route('/home', methods=['POST','GET'])
 def home():
     if request.method == "GET":
-        return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'])
+        conn = sqlite3.connect('Publicaciones.db')
+        q = f"""SELECT * FROM publicaciones
+                ORDER BY id DESC"""
+        x = conn.execute(q)
+        listaPublicaciones = x.fetchall()
+        
+        print(listaPublicaciones)
+        print(len(listaPublicaciones))
+        
+
+        return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'], listaPublicaciones = listaPublicaciones)
     elif request.method == "POST":
         return redirect('/home')
 
@@ -120,7 +130,7 @@ def profile():
     if request.method == "GET":
         return render_template("profile.html", fotoDePerfil = session['fotoDePerfilDefault'])
     elif request.method == "POST":
-        return redirect('/home')
+        return redirect('/profile')
 
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():
@@ -163,13 +173,22 @@ def nuevaImagen():
     elif request.method == "GET":
         return redirect('/home')
 
-@app.route('/mensajes')
+@app.route('/mensajes', methods=['POST', 'GET'])
 def mensajes():
-    return render_template('mensajes.html')
+    if request.method == "GET":
+        return render_template('mensajes.html')
+    elif request.method == "POST":
+        return redirect('/mensajes')
 
 @app.route('/admin', methods=['POST', 'GET'])
 def moderador():
-    return render_template('moderador.html')
+    if request.method == "GET":
+        if session['usuario'] == "elmascapodelproyecto":
+            return render_template('moderador.html')
+        else:
+            return redirect('/')
+    elif request.method == "POST":
+        return redirect('/')
 
 #@socketio.on('connect')
 #def test_connect():
