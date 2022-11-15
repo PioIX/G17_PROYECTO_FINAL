@@ -66,7 +66,7 @@
         <main >
           <div class="input-navegacion">
 
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick='mostrarFiltrarPor()'>
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="14" cy="6" r="2"></circle>
               <line x1="4" y1="6" x2="12" y2="6"></line>
@@ -85,8 +85,43 @@
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="10" cy="10" r="7"></circle>
               <line x1="21" y1="21" x2="15" y2="15"></line>
-           </svg>
+            </svg>
 
+          </div>
+          <div id="cont-filtrar-por" style="display: none;">
+            <form action="">
+              <div class="secctions" style="flex-direction: column";>
+                <div class="labelss">
+                  <label>Prenda</label>
+                  <label>Color</label>
+                </div>
+                <div class="selects">
+                  <select name="prendaFiltrar" id="prendaFiltrar" style="width: 60%;" class="selectPCS">
+
+                  </select>
+                  <select name="colorFiltrar" id="colorFiltrar" style="width: 30%;" class="selectPCS" onchange="colorElegido(this,'Filtrar')"> 
+                    <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                      <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                      <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                      <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                      <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                      <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                      <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                      <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                      <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                      <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                      <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="secctions" style="flex-direction: column" >
+                <label class="labelss">Sneaker</label>
+                <select name="sneakerFiltrar" id="sneakerFiltrar" style="width: 100%;" class="selectPCS"></select>
+              </div>
+              <div class="secctions">
+                <input type="submit" value="APLICAR" class="aplicar">
+              </div>
+            </form>
           </div>
           {% for i in range(listaPublicaciones|length) %}
             <div class="contenedor-main">

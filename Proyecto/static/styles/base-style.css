@@ -114,6 +114,7 @@ body{
     position: relative;
     top: 21px;
     left: 40px;
+    cursor: pointer;
 }
 
 .icono-2{
@@ -121,6 +122,7 @@ body{
     position: relative;
     top: 21px;
     right: 40px;
+    cursor: pointer;
 }
 
 /*---------------*/
@@ -190,13 +192,13 @@ main{
 }
 
 .imagenes{
-    width: 50%;
+    width: auto;
     color:var(--blanco);
     display: flex;
     height: auto;
     margin: auto;
     justify-content: center;
-    
+    cursor: pointer;
 }
 
 .estilo-imagenes{
@@ -450,6 +452,7 @@ hr{
 
 .publicar:hover{
     cursor: pointer;
+    color: var(--gris-claro);
 }
 
 /* ----------*/
@@ -490,8 +493,8 @@ hr{
     height: auto;
     display: grid;
     grid-template-columns: auto auto auto;
-    column-gap: 30px;
-    row-gap: 20px;
+    column-gap: 20px;
+    row-gap: 10px;
 }
 
 .foto{
@@ -537,4 +540,61 @@ hr{
     border: none;
 }
 
-/*-------*/
+/*--- BUSQUEDA ----*/
+
+#cont-filtrar-por{
+    background-color: var(--blanco);
+    width: 22%;
+    height: 175px;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.secctions{
+    margin: auto;
+    width: 95%;
+}
+
+.selects{
+    width: 100%;
+    height: auto;
+    background-color: var(--blanco);
+    display: flex;
+    justify-content: space-between;
+}
+
+.labelss{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.15em;
+    font-weight: bolder;
+    background-color: var(--blanco);
+    margin-top: 5px;
+}
+
+.selectPCS{
+    height: 30px;
+    border-width: 3px;
+    border-color: var(--negro);
+    font-size: 1em;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.aplicar{
+    margin-top: 10px;
+    background-color: var(--negro);
+    height: auto;
+    width: 100%;
+    color: var(--blanco);
+    font-size: 1em;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.aplicar:hover{
+    color: var(--gris-claro);
+}
