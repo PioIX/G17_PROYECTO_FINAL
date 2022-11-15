@@ -444,7 +444,7 @@ hr{
     height: 50px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 70px;
+    margin-bottom: 80px;
 }
 
 .navegacion-perfil-2{
@@ -483,7 +483,7 @@ hr{
 
 .subir-foto-perfil{
     width: 15%;
-    height: 70px;
+    height: 90px;
     background-color: var(--blanco);
     position: absolute;
     right: 30px;
@@ -499,7 +499,17 @@ hr{
 
 .style-photo:hover{
     cursor:pointer;
+    font-weight: bolder;
+    transition: .1s;
 }
+
+.style-input{
+    border: none;
+    background-color: var(--gris-claro);
+    width: 100%;
+    text-align: left;
+}
+
 
 
 .linea-divisoria{
