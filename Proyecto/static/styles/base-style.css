@@ -27,8 +27,13 @@ body{
 }
 
 .clase-logo{
-    height: 40px;
+    height: 45px;
     width: 140px;
+}
+
+.clase-logo:hover{
+    cursor: pointer;
+    transform: scale(1.03,1.03);
 }
 /*----------------*/
 
@@ -191,7 +196,7 @@ main{
 }
 
 #caracteristicas{
-    width: 300px;
+    width: 350px;
     text-align: center;
 }
 

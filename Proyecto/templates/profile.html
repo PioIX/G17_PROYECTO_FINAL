@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block navegador %}
-    <div class="estilo mi-perfil"><h2  id="estilo1"> Mi perfil </h2></div>
+    <div class="estilo mi-perfil">
+        <div class="logo">
+            <img src="{{url_for('static', filename='img/CB_Clothing_Bunker.png')}}" alt="" class="clase-logo" onclick="window.location.href='{{ url_for('home')}}';">
+          </div>
+        <h2  id="estilo1"> Mi perfil</h2>
+    </div>
 
     <div class="navegacion-perfil-2">
         <div class="subir-foto" onclick="lineaFoto()">
