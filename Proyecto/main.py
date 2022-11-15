@@ -7,8 +7,8 @@ import sqlite3
 
 from werkzeug.utils import secure_filename
 from flask_socketio import SocketIO
-UPLOAD_FOLDER_FotoPerfil = './Proyecto/static/img'
-UPLOAD_FOLDER_Publicacion = './Proyecto/static/img'
+UPLOAD_FOLDER_FotoPerfil = './Proyecto/static/img/perfil'
+UPLOAD_FOLDER_Publicacion = './Proyecto/static/img/publicacion'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 pathFotoPerfil = './Proyecto/static/img'
 path2 = 'img'
