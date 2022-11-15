@@ -23,7 +23,6 @@ app.secret_key = "asdasdazsdawefdfascacs"
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == "GET":
-        session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -131,7 +130,12 @@ def home():
         if imgPerfil[0][0] == None:
             session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
         else:
-            session['fotoDePerfilDefault'] = imgPerfil[0][0]
+           fotoDePerfil = imgPerfil[0][0]
+           session['fotoDePerfilDefault'] = fotoDePerfil
+        
+        print(fotoDePerfil)
+        print("session |> ")
+        print(session['fotoDePerfilDefault'])
             
         return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'], listaPublicaciones = listaPublicaciones)
     elif request.method == "POST":
