@@ -145,3 +145,10 @@ function eliminarFoto(){
 function subirFotoPerfil(){
     agregarFotoPerfil()
 }
+
+function colorElegido(element, cual){
+    cual2 = "color" + cual
+    let colorE = document.getElementById(cual2)
+    selectedValue = colorE.options[colorE.selectedIndex]
+    colorE.style.backgroundColor = selectedValue.style.backgroundColor;
+}

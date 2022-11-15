@@ -267,14 +267,18 @@ hr{
 
 /* SUBIR ARCHIVO*/
 
-.opciones{
-    font-size: larger;
-    font-weight: bolder;
 
+.opcion-null{
+    text-align: center;
 }
 
-.opciones:hover{
-    background-color: rgba(0, 0, 0, 0);
+.selectColor{
+    width: 80px;
+    border-width: 3px;
+    border-color: var(--negro);
+    font-size: 1em;
+    font-weight: 900;
+    cursor: pointer;
 }
 
 .publicacion{
@@ -374,7 +378,7 @@ hr{
 }
 
 .precio-border{
-    width: 20%;
+    width: 15%;
     border: 0;
     border-bottom: solid 2px var(--negro);
     background-color: var(--blanco);
@@ -383,6 +387,8 @@ hr{
     font-size: 1.1em;
     font-weight: bolder;
     padding-right: 2px;
+    outline: none;
+    border-width: 3px;
 }
 
 .boton-publicar{
@@ -411,22 +417,6 @@ hr{
 }
 
 /* ----------*/
-
-.opciones{
-    font-size: 3em;
-}
-
-#verde{
-    color: green;
-}
-
-#rojo{
-    color: var(--rojo)
-}
-
-#amarillo{
-    color: yellow;
-}
 
 /*BASE EXTENDIDO --> PERFIL*/
 .mi-perfil{
