@@ -148,6 +148,34 @@ def profile():
     elif request.method == "POST":
         return redirect('/profile')
 
+@app.route('/subirFotoPerfil', methods= ['POST', 'GET'])
+def nuevaFoto():
+    if request.method == 'POST':
+        foto = request.files["profile-photo"]
+            
+        if foto.filename == '':
+            flash('No selected file')
+            return redirect('/home')
+        else:
+            print("hola")
+            filename = secure_filename(foto.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            foto.save(file_path)
+            img = "./static/" + path2 + '/' + filename + ""
+    
+    
+        conn = sqlite3.connect('SocialMedia.db')
+        q = f"""INSERT INTO Usuarios
+                (fotoPerfil)
+                VALUES( '{img}') WHERE nombre = '{session['usuario']}'"""
+        conn.execute(q)
+        conn.commit()
+        conn.close()
+        
+    
+          
+             
+
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():
     if request.method == "POST":
