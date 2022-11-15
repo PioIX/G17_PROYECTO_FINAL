@@ -120,7 +120,19 @@ def home():
         print(listaPublicaciones)
         print(len(listaPublicaciones))
         
-
+        conn2 = sqlite3.connect('SocialMedia.db')
+        q2 = f"""SELECT fotoPerfil from Usuarios
+                WHERE nombre = '{session['usuario']}'"""
+        x2 = conn2.execute(q2)
+        
+        imgPerfil = x2.fetchall()
+        print(imgPerfil[0][0])
+        
+        if imgPerfil[0][0] == None:
+            session['fotoDePerfilDefault'] = '/static/img/sin-foto-perfil.jpeg'
+        else:
+            session['fotoDePerfilDefault'] = imgPerfil[0][0]
+            
         return render_template("base.html", fotoDePerfil = session['fotoDePerfilDefault'], listaPublicaciones = listaPublicaciones)
     elif request.method == "POST":
         return redirect('/home')
