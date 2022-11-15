@@ -130,15 +130,15 @@ def home():
         print(imgPerfil[0][0])
         fotoDePerfil = imgPerfil[0][0]
 
-        q3 = f"""SELECT username from Usuarios"""
-        x3 = conn2.execute(q3)
-        listaUsuarios = x3.fetchall()
         
         q4 = f"""SELECT * from Usuarios"""
         x4 = conn2.execute(q4)
         listaCompleta = x4.fetchall()
+        print(listaCompleta)
+        print(listaCompleta[0][3])
         
-        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaUsuarios = listaUsuarios, listaCompleta = listaCompleta)
+        
+        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta)
     elif request.method == "POST":
         return redirect('/home')
 
