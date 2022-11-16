@@ -11,6 +11,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
+i:hover {text-decoration: underline;}
+
 body{
     background-color: var(--negro) !important ;
     height: 100vh;
