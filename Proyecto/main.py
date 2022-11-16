@@ -27,6 +27,8 @@ def inicio():
     if request.method == "GET":
         session['usuario'] = ""
         session['contraseña'] = ""
+        session['mail'] = ""
+        session["nombre"] = ""
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -289,6 +291,14 @@ def moderador():
         else:
             return redirect('/')
     elif request.method == "POST":
+        return redirect('/')
+
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+        session['usuario'] = ""
+        session['contraseña'] = ""
+        session['mail'] = ""
+        session["nombre"] = ""
         return redirect('/')
 
 @app.route('/<username>', methods=['POST', 'GET'])
