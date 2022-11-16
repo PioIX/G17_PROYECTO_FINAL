@@ -154,7 +154,7 @@
                       <img src="{{listaCompleta[l][4]}}" alt="" class="foto-de-perfil">
                     {%endif%}
                   {%endfor%}
-                  <p class="estilo-nombre-usuario" onclick="mandarUrlUsuario()" id="arrobaUser"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
+                  <p class="estilo-nombre-usuario" onclick="mandarUrlUsuario()" id="arrobaUser" value="{{listaPublicaciones[i][1]}}"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
                 </div>
                 
                 <div class="iconos">
@@ -309,9 +309,7 @@
             </div>
           </section>
         </main>
-      
     {% endblock %}
-
 
     <!-- JavaScript Bundle with Popper -->
     <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
@@ -321,8 +319,7 @@
     <script>
       
       function mandarUrlUsuario(){
-        var input = document.getElementById("arrobaUser").value;
-        console.log(input);
+        console.log(document.getElementById("arrobaUser").value)
       }
 
     </script>
