@@ -1,3 +1,4 @@
+# https://es.stackoverflow.com/questions/429737/como-comprobar-si-ya-existe-un-archivo-con-el-mismo-nombre-y-si-es-asi-agregarl
 from flask import Flask, flash, request, redirect, url_for, render_template, session
 import os # The OS module in Python provides functions for creating and removing a directory (folder),
 from os.path import join, dirname, realpath, abspath
@@ -49,9 +50,6 @@ def checkearUsuario():
         resu = conn.execute(q)
         
         if resu.fetchone():
-            if session['usuario'] == "elmascapodelproyecto":
-                return redirect('/admin')
-            else:
                 return redirect('/home')
         else:
             flash('Usuario o contraseña incorrectos')
@@ -318,9 +316,9 @@ def moderador():
 
             return render_template('moderador.html', listaUsuarios = listaUsuarios)
         else:
-            return redirect('/')
+            return redirect('/home')
     elif request.method == "POST":
-        return redirect('/')
+        return redirect('/home')
 
 @app.route('/eliminarUsuario', methods=['POST', 'GET'])
 def eliminarUsuario():

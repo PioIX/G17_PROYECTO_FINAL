@@ -13,19 +13,19 @@
 </head>
 <body>
     <div class="contenedor">
-
+        <h1>¿A que usuario vas a banear?</h1>
+        
         <div class="div-input">
             <form action="/eliminarUsuario" method="post">
-                
                 <select id="usuarios" name="userBan">
                     {% for i in range(listaUsuarios|length) %}
                         <option name="userBan" value="{{ listaUsuarios[i][0] }}">{{ listaUsuarios[i][0] }}</option>
                     {% endfor %}
                 </select>
-
                 <button type="submit">Banear Usuario</button>
-
+            </form>
         </div>
+        
     </div>
 </body>
 </html>

@@ -25,6 +25,342 @@
 
   </body>
   </html>
+{% elif user == "elmascapodelproyecto" %}
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title> Clothing Bunker </title>
+      <link rel="stylesheet" href="{{url_for('static', filename='styles/base-style.css')}}"> 
+      <link rel="website icon" href="{{url_for('static', filename='img/CB.png')}}" type="png"> <!--aca va el logo de la pagina para que aparezca en la pestaña-->
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+      </style>
+  </head>
+  <body onload="load()">
+    {% block navegador2 %}
+      <header class="header">
+          <nav class="barra-navegacion">
+              <div class="logo">
+                <img src="{{url_for('static', filename='img/CB_Clothing_Bunker.png')}}" alt="" class="clase-logo" onclick="window.location.href='{{ url_for('home')}}';">
+              </div>
+
+              <div class="navegacion">
+                <div class="" onclick="buscar()" ><h2 class="estilo-texto estilo" id="estilo1"> Buscar </h2></div>
+                <div class="estilo-borde" onclick="publicacion()" ><h2 class="estilo-texto estilo2 estilo" id="estilo2"> Publicaciones </h2></div>
+                <div class="estilo-borde " onclick="mensaje()" ><h2 class="estilo-texto estilo3 estilo" id="estilo3"> Mensajes </h2></div>
+              </div>
+
+              <div class="navegacion-perfil">
+                <div class="subir-foto" onclick="lineaFoto()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="40" fill="grey" class="bi bi-plus mas" viewBox="0 0 16 14" id="icono-subir-foto">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </div>
+
+                <div class="perfil">
+                  <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" 
+                  onclick="window.location.href='{{ url_for('mostrarUsuario', username=session['usuario'])}}';">
+                </div>
+
+                <div class="flecha-desplegable" id="desplegable" onclick="menuMini()">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="flecha1">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                </div>
+                <form action="/logout" class="log-out" method="POST" style="display: none;" id="log-out">
+                  <button type="submit" formaction="/favoritos" formmethod="GET" formnovalidate="" class="botones">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                    </svg>
+                  </button>
+                  <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                      <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+                  </svg>
+                  <button type="submit" formaction="/admin" formmethod="GET" formnovalidate="" class="botones">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                    </svg>
+                  </button>
+                </button>
+                </form>
+              </div>
+            
+          </nav>
+      </header>
+      <div class="invisible">
+            
+      </div>
+    {% endblock %}
+
+    {% block principal2 %}  
+          <main >
+            <div class="input-navegacion">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick='mostrarFiltrarPor()'>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <circle cx="14" cy="6" r="2"></circle>
+                <line x1="4" y1="6" x2="12" y2="6"></line>
+                <line x1="16" y1="6" x2="20" y2="6"></line>
+                <circle cx="8" cy="12" r="2"></circle>
+                <line x1="4" y1="12" x2="6" y2="12"></line>
+                <line x1="10" y1="12" x2="20" y2="12"></line>
+                <circle cx="17" cy="18" r="2"></circle>
+                <line x1="4" y1="18" x2="15" y2="18"></line>
+                <line x1="19" y1="18" x2="20" y2="18"></line>
+            </svg>
+
+            <input type="text" name="" id="buscador" class="nav-bar" onkeyup="buscarPorNombre()">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search icono-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <circle cx="10" cy="10" r="7"></circle>
+                <line x1="21" y1="21" x2="15" y2="15"></line>
+              </svg>
+
+            </div>
+            <div id="cont-filtrar-por" style="display: none;">
+              <form action="">
+                <div class="secctions" style="flex-direction: column";>
+                  <div class="labelss">
+                    <label>Prenda</label>
+                    <label>Color</label>
+                  </div>
+                  <div class="selects">
+                    <select name="prendaFiltrar" id="prendaFiltrar" style="width: 60%;" class="selectPCS">
+                      <option value="null">null</option>
+                      <option value="remera">Remera</option>
+                      <option value="remera">Abrigo</option>
+                      <option value="remera">Pantalon</option>
+                    </select>
+                    <select name="colorFiltrar" id="colorFiltrar" style="width: 30%;" class="selectPCS" onchange="colorElegido(this,'Filtrar')"> 
+                      <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                        <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                        <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                        <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                        <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                        <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                        <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                        <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                        <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                        <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                        <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="secctions">
+                  <input type="submit" value="APLICAR" class="aplicar">
+                </div>
+              </form>
+            </div>
+            {% for i in range(listaPublicaciones|length) %}
+              <div class="contenedor-main">
+                <div class="imagenes" onclick="agregarDiv(this)">
+                  <img src="{{listaPublicaciones[i][2]}}" alt="" class="estilo-imagenes" id="info-imagen" >
+                  <div hidden name="div-agregado" class="claseParaProbar">
+                    <div id="caracteristicas">
+                      <h3 class="info-foto">Remera <span style="font-weight: 300;">{{listaPublicaciones[i][3]}} &nbsp; &nbsp; ${{listaPublicaciones[i][4]}}</span></h3>
+                      </br>
+                      <h3 class="info-foto">Abrigo <span style="font-weight: 300;">{{listaPublicaciones[i][5]}} &nbsp; &nbsp; ${{listaPublicaciones[i][6]}}</span></h3>
+                      </br>
+                      <h3 class="info-foto">Pantalon <span style="font-weight: 300;">{{listaPublicaciones[i][7]}} &nbsp; &nbsp; ${{listaPublicaciones[i][8]}}</span></h3>
+                      </br>
+                      <h3 class="info-foto">Sneaker <span style="font-weight: 300;">{{listaPublicaciones[i][9]}} &nbsp; &nbsp; ${{listaPublicaciones[i][10]}}</span></h3>
+                      </br>
+                      <hr class="linea-total">
+                      </br>
+                      <h3 style="text-align: center;">Total: ${{listaPublicaciones[i][15]}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="user-info">
+      
+                  <div class="foto-nombre-usuario">
+                    {% for l in range(listaCompleta|length) %}
+                      {% if listaPublicaciones[i][1] == listaCompleta[l][3] %}
+                        <img src="{{listaCompleta[l][4]}}" alt="" class="foto-de-perfil">
+                      {%endif%}
+                    {%endfor%}
+                    <p class="estilo-nombre-usuario" 
+                    onclick="window.location.href='{{ url_for('mostrarUsuario', username=listaPublicaciones[i][1])}}';"><i id="arrobaUser">@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
+                  </div>
+                  
+                  <div class="iconos">
+                    <div class="icono-favorito" onclick="favorito(this)">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                      </svg>
+                    </div>
+                    <div class="icono-enviar">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="enviar">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                        <path d="M21 3l-6.5 18a0.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a0.55 .55 0 0 1 0 -1l18 -6.5"></path>
+                    </svg>
+                    </div>
+                  </div>
+      
+                </div>
+                <hr>
+              </div>
+            {%endfor%}
+
+            <section class="publicacion" id="publicar">
+              <div class="contenedor-subir">
+                <div class="contenedor-flecha">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left flecha" width="24" height="24" viewBox="0 0 18 18" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="window.location.href='{{ url_for('home')}}';">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <polyline points="15 6 9 12 15 18"></polyline>
+                </svg>
+                
+                </div>
+                
+                <form action="/subirImagen" method="post" class="orden-elementos" enctype="multipart/form-data">
+
+                  <div class="subir-archivo">
+                    
+                    <input type="file" name="imagen" id="img" accept="image/png, image/jpeg, image/jpg" style="display:none;">
+                    <label for="img" class="texto-archivo">Subir imagen</label>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-upload" width="32" height="32" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                      <polyline points="7 9 12 4 17 9"></polyline>
+                      <line x1="12" y1="4" x2="12" y2="16"></line>
+                  </svg>
+
+                  </div>
+                  
+                  <div class="contenedor-info">
+                    <div class="labels">
+                      <label for="Remera">Remera</label>
+                      <label for="Precio">Precio</label>
+                    </div>
+                    
+                    <div class="estilo-div">
+                      
+                      <input type="text" placeholder="Modelo" class="no-border" name="modeloRemera">
+
+                      <select name="colorRemera" id="colorRemera" class="selectColor" onchange="colorElegido(this,'Remera')">
+                        <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                        <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                        <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                        <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                        <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                        <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                        <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                        <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                        <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                        <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                        <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                      </select>
+                      
+                      <input type="number" name="precioRemera" id="" class="precio-border">
+                    </div>
+
+                    <label for="Abrigo" class="estilo-lables">Abrigo</label>
+                    <div class="estilo-div">
+                      
+                      <input type="text" placeholder="Modelo" class="no-border" name="modeloAbrigo">
+
+                      <select name="colorAbrigo" id="colorAbrigo" class="selectColor" onchange="colorElegido(this,'Abrigo')">
+                        <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                        <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                        <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                        <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                        <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                        <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                        <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                        <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                        <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                        <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                        <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                      </select>
+
+                      <input type="number" name="precioAbrigo" id="" class="precio-border">
+                    </div>
+
+                    <label for="Pantalon" class="estilo-lables">Pantalon</label>
+                    <div class="estilo-div">
+                      
+                      <input type="text" placeholder="Modelo" class="no-border" name="modeloPantalon">
+
+                      <select name="colorPantalon" id="colorPantalon" class="selectColor" onchange="colorElegido(this,'Pantalon')">
+                        <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                        <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                        <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                        <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                        <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                        <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                        <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                        <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                        <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                        <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                        <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                      </select>
+
+                      <input type="number" name="precioPantalon" id="" class="precio-border">
+                    </div>
+
+                    <label for="Sneaker"class="estilo-lables">Sneaker</label>
+                    <div class="estilo-div">
+                      
+                      <input type="text" placeholder="Modelo" class="no-border" name="modeloSneaker">
+
+                      <select name="colorSneaker" id="colorSneaker" class="selectColor" onchange="colorElegido(this,'Sneaker')">
+                        <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
+                        <option id="negro" class="opciones" value="negro" style="background-color: #000"></option>
+                        <option id="marron" class="opciones" value="marron" style="background-color: #70470A"></option>
+                        <option id="verde" class="opciones"  value="verde" style="background-color: #186037"></option>
+                        <option id="azul" class="opciones" value="azul" style="background-color: #023982"></option>
+                        <option id="celeste" class="opciones" value="celeste" style="background-color: #5C9CF1"></option>
+                        <option id="rojo" class="opciones" value="rojo" style="background-color: #AB2F2F"></option>
+                        <option id= "beige" class="opciones" value="beige" style="background-color: #BFA978"></option>
+                        <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
+                        <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
+                        <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                      </select>
+
+                      <input type="number" name="precioSneaker" id="" class="precio-border">
+                    </div>
+
+                  </div>
+                  
+                  <div class="boton-publicar">
+                    <input type="submit" value="PUBLICAR" class="publicar">
+                  </div>
+                  
+                
+                </form>
+              </div>
+            </section>
+          </main>
+      {% endblock %}
+
+      <!-- JavaScript Bundle with Popper -->
+      <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
+
+      <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+        
+        /*function mandarUrlUsuario(){
+          console.log(document.getElementById("arrobaUser").data)
+        }*/
+
+      </script>
+  </body>
+  </html>
 {% else %}
   <!DOCTYPE html>
   <html lang="en">
