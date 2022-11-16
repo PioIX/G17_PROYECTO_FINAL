@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/mensajes-style.css')}}">
-    <link rel="website icon" href="{{url_for('static', filename='img/foto-perfil.jpg')}}" type="jpg"> <!--aca va el logo de la pagina para que aparezca en la pestaña-->
+{% extends 'base.html' %}
 
-</head>
-<body>
-    
-    <div class="contenedor">
-        <div class="contenedor-2">
+{% block principal %}
+<div class="contendor-principal-mensajes">
+    <div class="principal-mensajes">
+        <input type="text" name="" id="" placeholder="Ingresa tu mensaje" class="input-mensajes">
 
-        </div>
     </div>
-
-</body>
-</html>
+</div>
+{% endblock %}

@@ -622,3 +622,34 @@ hr{
 .botones{
     border: none;
 }
+
+/*MENSAJES*/
+.contendor-principal-mensajes{
+    width: 100%;
+    height: calc(100% - 75.97px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.principal-mensajes{
+    width: 60%;
+    height: 600px;
+    background-color: var(--gris-claro);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.input-mensajes{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    padding-left:10px;
+    color: var(--negro);
+    font-weight: bolder;
+    outline: none;
+    border: 0;
+    border-radius: 10px;
+}
+/*---------------------*/
