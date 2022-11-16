@@ -29,6 +29,17 @@ function menuMini(){
       }
 }
 
+function menuMini2(){
+    let rotar = document.getElementById("flecha2");
+    rotar.style.transform = 'rotate(180deg)'; //rotar devuelta a posicion original
+    const element = document.getElementById("log-out2");
+    if (element.style.display === "none") {
+        element.style.display = "flex";
+      } else {
+        element.style.display = "none";
+      }
+}
+
 function agregarDiv(element) {
     console.log(element);
     element.children[1].classList.toggle("claseParaProbar");
