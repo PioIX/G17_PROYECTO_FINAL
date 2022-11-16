@@ -29,6 +29,8 @@ def inicio():
         session['contraseña'] = ""
         session['mail'] = ""
         session["nombre"] = ""
+        print(session['usuario'])
+        print(session['contraseña'])
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -57,13 +59,12 @@ def checkearUsuario():
             flash('Usuario o contraseña incorrectos')
             return render_template("login.html", login = True)
 
-
 @app.route('/register', methods=['GET', 'POST'])
 def registro():
     if request.method == "GET":
         return render_template("register.html")
     elif request.method == "POST":
-        return redirect('/')
+        return redirect('/register')
 
 @app.route('/añadirUsuario', methods=['POST', 'GET'])
 def agregarUsuario():
@@ -116,49 +117,55 @@ def agregarUsuario():
 @app.route('/home', methods=['POST','GET'])
 def home():
     if request.method == "GET":
-        conn = sqlite3.connect('Publicaciones.db')
-        q = f"""SELECT * FROM publicaciones
-                ORDER BY id DESC"""
-        x = conn.execute(q)
-        listaPublicaciones = x.fetchall()
-        
-        print(listaPublicaciones)
-        print(len(listaPublicaciones))
-        
-        conn2 = sqlite3.connect('SocialMedia.db')
-        q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE username = '{session['usuario']}'"""
-        x2 = conn2.execute(q2)
-        
-        imgPerfil = x2.fetchall()
-        print(imgPerfil[0][0])
-        fotoDePerfil = imgPerfil[0][0]
+        if session['usuario'] != "":
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT * FROM publicaciones
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicaciones = x.fetchall()
+            
+            print(listaPublicaciones)
+            print(len(listaPublicaciones))
+            
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            print(imgPerfil[0][0])
+            fotoDePerfil = imgPerfil[0][0]
 
+            
+            q4 = f"""SELECT * from Usuarios"""
+            x4 = conn2.execute(q4)
+            listaCompleta = x4.fetchall()
+            print(listaCompleta)
+            print(listaCompleta[0][3])
+            return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
+        elif session['usuario'] == "":
+            session['usuario'] = ""
+            return render_template("base.html", user = session['usuario'])
         
-        q4 = f"""SELECT * from Usuarios"""
-        x4 = conn2.execute(q4)
-        listaCompleta = x4.fetchall()
-        print(listaCompleta)
-        print(listaCompleta[0][3])
-        
-        
-        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta)
     elif request.method == "POST":
         return redirect('/home')
 
 @app.route('/profile', methods=['POST','GET'])
 def profile():
     if request.method == "GET":
-        conn2 = sqlite3.connect('SocialMedia.db')
-        q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE username = '{session['usuario']}'"""
-        x2 = conn2.execute(q2)
-        
-        imgPerfil = x2.fetchall()
-        print(imgPerfil[0][0])
-        fotoDePerfil = imgPerfil[0][0]
+        if session['usuario'] != "":
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            print(imgPerfil[0][0])
+            fotoDePerfil = imgPerfil[0][0]
 
-        return render_template("profile.html", fotoDePerfil = fotoDePerfil)
+            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
+        elif session['usuario'] == "":
+            return redirect('/')
     elif request.method == "POST":
         return redirect('/profile')
 
@@ -194,7 +201,6 @@ def nuevaFoto():
         return redirect('/profile')
     elif request.method == "GET":
         return redirect('/profile')
-
 
 @app.route('/subirImagen', methods=['POST', 'GET'])
 def nuevaImagen():
@@ -273,7 +279,10 @@ def nuevaImagen():
 @app.route('/mensajes', methods=['POST', 'GET'])
 def mensajes():
     if request.method == "GET":
-        return render_template('mensajes.html')
+        if session['usuario'] != "":
+            return render_template('mensajes.html')
+        elif session['usuario'] == "":
+            return redirect('/')
     elif request.method == "POST":
         return redirect('/mensajes')
 
@@ -281,7 +290,6 @@ def mensajes():
 def buscarUsuario():
     pass
     #pasar todos los usuarios con la linea "WHERE (usuario de la base de datos) LIKE "%valorInput%"
-
 
 @app.route('/admin', methods=['POST', 'GET'])
 def moderador():
@@ -324,7 +332,6 @@ def mostrarUsuario(username):
         return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)
     elif request.method == "POST":
         return redirect('/')
-
 
 #@socketio.on('connect')
 #def test_connect():
