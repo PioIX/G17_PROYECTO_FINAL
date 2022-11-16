@@ -154,6 +154,24 @@ body{
     top: 50px;
     padding-top: 5px;
     padding-bottom: 5px;
+    border-radius: 3px;
+}
+
+.log-out2{
+    background-color: var(--blanco);
+    width: 30px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -5px;
+    top: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
 }
 
 .invisible{
@@ -545,7 +563,7 @@ hr{
 #cont-filtrar-por{
     background-color: var(--blanco);
     width: 22%;
-    height: 175px;
+    height: 115px;
     margin: auto;
     margin-top: 10px;
     display: flex;
@@ -597,4 +615,8 @@ hr{
 
 .aplicar:hover{
     color: var(--gris-claro);
+}
+
+.botones{
+    border: none;
 }

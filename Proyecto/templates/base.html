@@ -43,15 +43,19 @@
                </svg>
               </div>
               <form class="log-out" method="POST" style="display: none;" id="log-out">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                <button type="submit" formaction="/favoritos" formmethod="GET" formnovalidate="" class="botones">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round" id="favorito">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                  </svg>
+                </button>
+                <button type="submit" formaction="/logout" formmethod="GET" formnovalidate="" class="botones">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                    <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
-                  <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
-               </svg>
+              </button>
               </form>
             </div>
           
@@ -97,7 +101,10 @@
                 </div>
                 <div class="selects">
                   <select name="prendaFiltrar" id="prendaFiltrar" style="width: 60%;" class="selectPCS">
-
+                    <option value="null">null</option>
+                    <option value="remera">Remera</option>
+                    <option value="remera">Abrigo</option>
+                    <option value="remera">Pantalon</option>
                   </select>
                   <select name="colorFiltrar" id="colorFiltrar" style="width: 30%;" class="selectPCS" onchange="colorElegido(this,'Filtrar')"> 
                     <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
@@ -113,10 +120,6 @@
                       <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
                   </select>
                 </div>
-              </div>
-              <div class="secctions" style="flex-direction: column" >
-                <label class="labelss">Sneaker</label>
-                <select name="sneakerFiltrar" id="sneakerFiltrar" style="width: 100%;" class="selectPCS"></select>
               </div>
               <div class="secctions">
                 <input type="submit" value="APLICAR" class="aplicar">
