@@ -2,6 +2,7 @@
 from flask import Flask, flash, request, redirect, url_for, render_template, session
 import os # The OS module in Python provides functions for creating and removing a directory (folder),
 from os.path import join, dirname, realpath, abspath
+from os import path as osPath
 # fetching its contents, changing and identifying the current directory, etc.
 
 import sqlite3
@@ -215,17 +216,31 @@ def nuevaImagen():
         
         
         if imagen.filename == '':
-            flash('No selected file')
             return redirect('/home')
         else:
-            print("hola")
             filename = secure_filename(imagen.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
-            imagen.save(file_path)
-            foto1 = imagen.filename.replace("(", "")
-            foto2 = foto1.replace(")", "")
-            foto3 = foto2.replace(" ", "_")
-            img = "./static/" + path2 + '/' + foto3 + ""
+            if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)):
+                numb = 1
+                # Separa el nombre del archivo de su extensión colocando el numero en el medio (al final del nombre)
+                newName = "{0}_{2}{1}".format(*osPath.splitext(filename) + (numb,))
+
+                # Si existe un archivo con ese nombre incrementa el numero
+                if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)):
+                    numb += 1
+                else:
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)
+                    imagen.save(file_path)
+                    print(newName)
+                    img = "./static/" + path2 + '/' + newName + ""
+            else:
+                print("hola")
+                filename = secure_filename(imagen.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
+                imagen.save(file_path)
+                foto1 = imagen.filename.replace("(", "")
+                foto2 = foto1.replace(")", "")
+                foto3 = foto2.replace(" ", "_")
+                img = "./static/" + path2 + '/' + foto3 + ""
         
         precioTotal = 0
         
