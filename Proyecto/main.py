@@ -29,8 +29,6 @@ def inicio():
         session['contraseña'] = ""
         session['mail'] = ""
         session["nombre"] = ""
-        print(session['usuario'])
-        print(session['contraseña'])
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -124,24 +122,18 @@ def home():
             x = conn.execute(q)
             listaPublicaciones = x.fetchall()
             
-            print(listaPublicaciones)
-            print(len(listaPublicaciones))
             
             conn2 = sqlite3.connect('SocialMedia.db')
             q2 = f"""SELECT fotoPerfil from Usuarios
                     WHERE username = '{session['usuario']}'"""
             x2 = conn2.execute(q2)
-            
             imgPerfil = x2.fetchall()
-            print(imgPerfil[0][0])
             fotoDePerfil = imgPerfil[0][0]
 
             
             q4 = f"""SELECT * from Usuarios"""
             x4 = conn2.execute(q4)
             listaCompleta = x4.fetchall()
-            print(listaCompleta)
-            print(listaCompleta[0][3])
             return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
         elif session['usuario'] == "":
             session['usuario'] = ""
@@ -288,17 +280,72 @@ def mensajes():
 
 @app.route('/buscarNombre', methods=['POST', 'GET'])
 def buscarUsuario():
-    pass
-    #pasar todos los usuarios con la linea "WHERE (usuario de la base de datos) LIKE "%valorInput%"
+    search_term = request.form
+    search = search_term["value"]
+    
+    conn = sqlite3.connect('SocialMedia.db')
+    conn2 = sqlite3.connect('Publicaciones.db')
+
+    q3 = f"""SELECT * FROM publicaciones
+            WHERE usuario LIKE '{search}'
+            ORDER BY id DESC"""
+    x3 = conn2.execute(q3)
+    listaPublicaciones = x3.fetchall()
+    
+
+    q4 = f"""SELECT * from Usuarios"""
+    x4 = conn.execute(q4)
+    listaCompleta = x4.fetchall()
+
+    q5 = f"""SELECT fotoPerfil from Usuarios
+            WHERE username = '{session['usuario']}'"""
+    x5 = conn.execute(q5)
+    
+    imgPerfil = x5.fetchall()
+    fotoDePerfil = imgPerfil[0][0]
+
+    return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
+    # Falta hacer que cambie el HTML, sino hacer otra página para el buscar #
 
 @app.route('/admin', methods=['POST', 'GET'])
 def moderador():
     if request.method == "GET":
         if session['usuario'] == "elmascapodelproyecto":
-            return render_template('moderador.html')
+            
+            conn = sqlite3.connect('SocialMedia.db')
+            q = f"""SELECT username FROM Usuarios"""
+            listaUsuarios = conn.execute(q).fetchall()
+
+            return render_template('moderador.html', listaUsuarios = listaUsuarios)
         else:
             return redirect('/')
     elif request.method == "POST":
+        return redirect('/')
+
+@app.route('/eliminarUsuario', methods=['POST', 'GET'])
+def eliminarUsuario():
+    if request.method == 'POST':
+        usuarioBan = request.form["userBan"]
+        print(usuarioBan)
+
+        conn = sqlite3.connect('SocialMedia.db')
+        conn2 = sqlite3.connect('Publicaciones.db')
+
+        q = f"""DELETE FROM Usuarios
+                WHERE username = '{usuarioBan}'"""
+        
+        q2 = f"""DELETE FROM publicaciones
+                WHERE usuario = '{usuarioBan}'"""
+
+        conn.execute(q)
+        conn2.execute(q2)
+        conn.commit()
+        conn.close()
+        conn2.commit()
+        conn2.close()
+
+        return redirect('/admin')
+    elif request.method == 'GET':
         return redirect('/')
 
 @app.route('/logout', methods=['POST', 'GET'])

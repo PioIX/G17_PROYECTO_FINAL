@@ -145,20 +145,20 @@ function favorito(element){
 }
 
 
-//function enviarImagen(params) {
-    //valor = document.getEelementByID("img").value;
-    //valorRemera = document.getElementById("modelo-remera").value
-    //$.ajax({ 
-        //url:"/subirImagen", 
-        //type:"POST", 
-        //data: {"value":valor},    
-        //success: function(response){  //En response voy a tener el JSON
+/*function enviarImagen(params) {
+    valor = document.getEelementByID("img").value;
+    valorRemera = document.getElementById("modelo-remera").value
+    $.ajax({ 
+        url:"/subirImagen", 
+        type:"POST", 
+        data: {"value":valor},    
+        success: function(response){  //En response voy a tener el JSON
             
-        //}, 
-        //error: function(error){ 
-          //console.log(error); 
-      //}, });
-//}
+        }, 
+        error: function(error){ 
+          console.log(error); 
+      }, });
+}*/
 
 function agregarFotoPerfil(){
     const element = document.getElementsByClassName("subir-foto-perfil");
@@ -173,9 +173,9 @@ function eliminarFoto(){
     agregarFotoPerfil()    
 }
 
-function subirFotoPerfil(){
+/*function subirFotoPerfil(){
     
-}
+}*/
 
 function colorElegido(element, cual){
     cual2 = "color" + cual
@@ -197,7 +197,6 @@ function buscarPorNombre() {
           console.log(error); 
       }, 
     });
-
 }
 
 
