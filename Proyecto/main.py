@@ -285,7 +285,7 @@ def buscarUsuario():
     conn2 = sqlite3.connect('Publicaciones.db')
 
     q3 = f"""SELECT * FROM publicaciones
-            WHERE usuario LIKE '{search}'
+            WHERE usuario LIKE '%{search}%'
             ORDER BY id DESC"""
     x3 = conn2.execute(q3)
     listaPublicaciones = x3.fetchall()

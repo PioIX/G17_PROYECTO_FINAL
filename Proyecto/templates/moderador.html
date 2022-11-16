@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Clothing Bunker </title>
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/base-style.css')}}"> 
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/moderador-style.css')}}"> 
     <link rel="website icon" href="{{url_for('static', filename='img/CB.png')}}" type="png"> <!--aca va el logo de la pagina para que aparezca en la pestaña-->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
@@ -13,16 +13,20 @@
 </head>
 <body>
     <div class="contenedor">
-        <h1>¿A que usuario vas a banear?</h1>
+        <div class="logo">
+            <img src="{{url_for('static', filename='img/CB_Clothing_Bunker.png')}}" alt="" class="clase-logo" onclick="window.location.href='{{ url_for('home')}}';">
+        </div>
+        
+        <h1 style="color: #FFFFFF;">¿Qué usuario desea banear?</h1>
         
         <div class="div-input">
-            <form action="/eliminarUsuario" method="post">
-                <select id="usuarios" name="userBan">
+            <form action="/eliminarUsuario" method="post" class="moderador">
+                <select id="usuarios" name="userBan" class="usuarios-banear">
                     {% for i in range(listaUsuarios|length) %}
                         <option name="userBan" value="{{ listaUsuarios[i][0] }}">{{ listaUsuarios[i][0] }}</option>
                     {% endfor %}
                 </select>
-                <button type="submit">Banear Usuario</button>
+                <button type="submit" class="usuarios-submit">Banear</button>
             </form>
         </div>
         
