@@ -361,11 +361,11 @@ def mostrarUsuario(username):
     if request.method == "GET":
         conn = sqlite3.connect('Publicaciones.db')
         q = f"""SELECT rutaImagen FROM publicaciones
-                WHERE usuario = '{username}'"""
+                WHERE usuario = '{username}'
+                ORDER BY id DESC"""
         x = conn.execute(q)
         listaPublicacionesDelUser = x.fetchall()
-        print(listaPublicacionesDelUser)
-        print(listaPublicacionesDelUser[0][0])
+
 
         conn2 = sqlite3.connect('SocialMedia.db')
         q2 = f"""SELECT fotoPerfil from Usuarios
@@ -373,7 +373,6 @@ def mostrarUsuario(username):
         x2 = conn2.execute(q2)
         
         imgPerfil = x2.fetchall()
-        print(imgPerfil[0][0])
         fotoDePerfil = imgPerfil[0][0]
 
         return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)

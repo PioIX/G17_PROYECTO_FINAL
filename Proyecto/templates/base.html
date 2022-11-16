@@ -61,7 +61,8 @@
                 </div>
 
                 <div class="perfil">
-                  <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" onclick="window.location.href='{{ url_for('profile')}}';">
+                  <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" 
+                  onclick="window.location.href='{{ url_for('mostrarUsuario', username=session['usuario'])}}';">
                 </div>
 
                 <div class="flecha-desplegable" id="desplegable" onclick="menuMini()">
@@ -182,7 +183,8 @@
                         <img src="{{listaCompleta[l][4]}}" alt="" class="foto-de-perfil">
                       {%endif%}
                     {%endfor%}
-                    <p class="estilo-nombre-usuario" onclick="mandarUrlUsuario()"><i id="arrobaUser">@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
+                    <p class="estilo-nombre-usuario" 
+                    onclick="window.location.href='{{ url_for('mostrarUsuario', username=listaPublicaciones[i][1])}}';"><i id="arrobaUser">@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
                   </div>
                   
                   <div class="iconos">
@@ -346,9 +348,9 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script>
         
-        function mandarUrlUsuario(){
+        /*function mandarUrlUsuario(){
           console.log(document.getElementById("arrobaUser").data)
-        }
+        }*/
 
       </script>
   </body>
