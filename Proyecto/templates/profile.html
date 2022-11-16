@@ -36,15 +36,9 @@
 </form>
 <section class="container">
     <div class="grid-container">
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
-        <div ><img src="{{url_for('static', filename='img/outfit1.png')}}" alt="" class="foto"></div>
+        {% for i in range(listaPublicacionesDelUser|length) %}
+            <div ><img src="{{listaPublicacionesDelUser[i][0]}}" alt="" class="foto"></div>
+        {%endfor%}
     </div>
 </section>
 {% endblock %}

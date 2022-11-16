@@ -35,12 +35,30 @@
                 {% endwith %}
             {% endif %}
 
-            <div class="contenedor-botones">
+            <div class="contenedor-botones" id="btn-login">
                 <input type="submit" value="Registrarse" class="btn" formaction="/register" formmethod="GET" formnovalidate="">
-                <input type="submit" value="Ingresar" class="btn">
+                <input type="submit" value="Ingresar" class="btn" id="send">
             </div>
         </form>
     </div>
 
 </body>
+<script type="text/javascript" charset="utf-8">
+
+    /*var input = document.getElementById('btn-login');
+    input.addEventListener('keyup', function(event) {
+    if (event.keyCode === 13) {
+        document.getElementById('send').click();
+    }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
+        if(e.keyCode == 13) {
+          e.preventDefault();
+        }
+      }))
+    });*/
+    
+</script>
 </html>

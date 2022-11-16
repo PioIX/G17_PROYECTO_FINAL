@@ -25,6 +25,8 @@ app.secret_key = "asdasdazsdawefdfascacs"
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == "GET":
+        session['usuario'] = ""
+        session['contraseña'] = ""
         return render_template("login.html", login = False)
     elif request.method == "POST":
         return redirect('/')
@@ -171,8 +173,12 @@ def nuevaFoto():
             filename = secure_filename(foto.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER_FotoPerfil'], filename)
             foto.save(file_path)
-    
-        imgPerfil = "/static/img/perfil/" + foto.filename
+
+        foto1 = foto.filename.replace("(", "")
+        foto2 = foto1.replace(")", "")
+        foto3 = foto2.replace(" ", "_")
+        print(foto3)
+        imgPerfil = "/static/img/perfil/" + foto3
         print(imgPerfil)
 
         conn = sqlite3.connect('SocialMedia.db')
@@ -218,7 +224,10 @@ def nuevaImagen():
             filename = secure_filename(imagen.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)
             imagen.save(file_path)
-            img = "./static/" + path2 + '/' + filename + ""
+            foto1 = imagen.filename.replace("(", "")
+            foto2 = foto1.replace(")", "")
+            foto3 = foto2.replace(" ", "_")
+            img = "./static/" + path2 + '/' + foto3 + ""
         
         precioTotal = 0
         
@@ -266,7 +275,7 @@ def mensajes():
     elif request.method == "POST":
         return redirect('/mensajes')
 
-@app.route('/buscarNombre', methods=['POST'])
+@app.route('/buscarNombre', methods=['POST', 'GET'])
 def buscarUsuario():
     pass
     #pasar todos los usuarios con la linea "WHERE (usuario de la base de datos) LIKE "%valorInput%"
@@ -279,6 +288,30 @@ def moderador():
             return render_template('moderador.html')
         else:
             return redirect('/')
+    elif request.method == "POST":
+        return redirect('/')
+
+@app.route('/<username>', methods=['POST', 'GET'])
+def mostrarUsuario(username):
+    if request.method == "GET":
+        conn = sqlite3.connect('Publicaciones.db')
+        q = f"""SELECT rutaImagen FROM publicaciones
+                WHERE usuario = '{username}'"""
+        x = conn.execute(q)
+        listaPublicacionesDelUser = x.fetchall()
+        print(listaPublicacionesDelUser)
+        print(listaPublicacionesDelUser[0][0])
+
+        conn2 = sqlite3.connect('SocialMedia.db')
+        q2 = f"""SELECT fotoPerfil from Usuarios
+                WHERE username = '{session['usuario']}'"""
+        x2 = conn2.execute(q2)
+        
+        imgPerfil = x2.fetchall()
+        print(imgPerfil[0][0])
+        fotoDePerfil = imgPerfil[0][0]
+
+        return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)
     elif request.method == "POST":
         return redirect('/')
 

@@ -151,7 +151,7 @@
                       <img src="{{listaCompleta[l][4]}}" alt="" class="foto-de-perfil">
                     {%endif%}
                   {%endfor%}
-                  <p class="estilo-nombre-usuario"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
+                  <p class="estilo-nombre-usuario" onclick="mandarUrlUsuario()" id="arrobaUser"><i>@{{listaPublicaciones[i][1]}}</i></p> <!--Aca va el nombre del usuario guardado en la base de datos-->
                 </div>
                 
                 <div class="iconos">
@@ -315,5 +315,13 @@
 
     <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      
+      function mandarUrlUsuario(){
+        var input = document.getElementById("arrobaUser").value;
+        console.log(input);
+      }
+
+    </script>
 </body>
 </html>
