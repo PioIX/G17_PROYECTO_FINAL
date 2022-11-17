@@ -8,7 +8,7 @@
         </div>
 
         <div class="mi-perfil">
-          
+          <p style="color: white; font-size: 45px; margin-top: 20px;">Chat</p>
         </div>
 
         <div class="navegacion-perfil">
@@ -57,26 +57,28 @@
 <div class="contendor-principal-mensajes">
     <div class="principal-mensajes">
         <div class="contenedor-mensajes">
-            <textarea id="chat" cols="95" rows="35" class="box-chat"></textarea>
+            <ul id="chat" class="box-chat">
+              {% for i in range(listaMensajes|length) %}
+                <li>{{listaMensajes[i][0]}}</li>
+              {%endfor%}
+            </ul>
         </div>
-        <div class="contenedor-input-mensajes">
-            <input type="text" name="" id="MyMsg" placeholder="Ingresa tu mensaje" class="input-mensajes" maxlength="100">
-
-            <button type="button" id="send" class="boton-enviar-mensaje botones" onclick="enviar()">
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                    <path d="M21 3l-6.5 18a0.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a0.55 .55 0 0 1 0 -1l18 -6.5"></path>
-                </svg>
-
-            </button>
-
-        </div>
-        
-
     </div>
+    <footer class="contenedor-input-mensajes">
+      <input type="text" name="" id="MyMsg" placeholder="Ingresa tu mensaje" class="input-mensajes" maxlength="100">
+    
+      <button type="button" id="send" class="boton-enviar-mensaje botones" onclick="enviar()">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+          <path d="M21 3l-6.5 18a0.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a0.55 .55 0 0 1 0 -1l18 -6.5"></path>
+        </svg>
+    
+      </button>
+    </footer>
 </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous">
 </script>
@@ -113,7 +115,11 @@
   });
   
     socket.on('enviarMsg', function(json){
-        document.getElementById('chat').value = document.getElementById('chat').value + json + '\n'
+        var chat = document.getElementById('chat');
+        var mensajes = document.createElement("li");
+        mensajes.innerHTML = json;
+        chat.appendChild(mensajes);
+        console.log(json);
     });
 </script>
 {% endblock %}
