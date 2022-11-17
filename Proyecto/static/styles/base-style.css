@@ -510,11 +510,12 @@ hr{
 
 .grid-container{
     width: auto;
-    height: auto;
+    height: 800px;
     display: grid;
     grid-template-columns: auto auto auto;
     column-gap: 20px;
     row-gap: 10px;
+    margin-top: 100px;
 }
 
 .foto{
@@ -640,14 +641,19 @@ hr{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 80px;
+    padding-bottom: 40px;
+    
 }
 
 .contenedor-input-mensajes{
-    width: 80%;
+    width: 40%;
     height: 40px;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-around;
+    position: fixed;
+    bottom: 0;
 }
 
 .input-mensajes{
@@ -656,9 +662,11 @@ hr{
     padding-left:10px;
     color: var(--negro);
     font-weight: bolder;
+    font-size: 1.1em;
     outline: none;
     border: 0;
     border-radius: 10px;
+    box-shadow: var(--gris-claro) 3px 3px;
 }
 
 .boton-enviar-mensaje{
@@ -668,6 +676,7 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: var(--gris-claro) 2px 2px;
 }
 
 .contenedor-mensajes{
