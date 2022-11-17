@@ -150,24 +150,43 @@ def filtrarPor():
         print(prenda)
 
         if prenda == "null":
-            conn = sqlite3.connect('Publicaciones.db')
-            q = f"""SELECT * FROM publicaciones
-                    WHERE colorRemera LIKE '{color}'
-                    OR colorAbrigo LIKE '{color}'
-                    OR colorPantalon LIKE '{color}' 
-                    ORDER BY id DESC"""
-            x = conn.execute(q)
-            listaPublicaciones = x.fetchall()
-            print(listaPublicaciones)
+            if color != "null":
+                conn = sqlite3.connect('Publicaciones.db')
+                q = f"""SELECT * FROM publicaciones
+                        WHERE colorRemera LIKE '{color}'
+                        OR colorAbrigo LIKE '{color}'
+                        OR colorPantalon LIKE '{color}' 
+                        ORDER BY id DESC"""
+                x = conn.execute(q)
+                listaPublicaciones = x.fetchall()
+                print(listaPublicaciones)
+            elif color == "null":
+                conn = sqlite3.connect('Publicaciones.db')
+                q = f"""SELECT * FROM publicaciones
+                        ORDER BY id DESC"""
+                x = conn.execute(q)
+                listaPublicaciones = x.fetchall()
+                print(listaPublicaciones)
         else:
-            prenda2 = "color" + prenda
-            conn = sqlite3.connect('Publicaciones.db')
-            q = f"""SELECT * FROM publicaciones
-                    WHERE {prenda2} LIKE '{color}'
-                    ORDER BY id DESC"""
-            x = conn.execute(q)
-            listaPublicaciones = x.fetchall()
-            print(listaPublicaciones)
+            if color == "multicolor":
+                nomPrenda = "nombre" + prenda
+                conn = sqlite3.connect('Publicaciones.db')
+                q = f"""SELECT * FROM publicaciones
+                        WHERE {nomPrenda} NOT LIKE ''
+                        ORDER BY id DESC"""
+                x = conn.execute(q)
+                listaPublicaciones = x.fetchall()
+                print(listaPublicaciones)
+            elif color != "multicolor" and color != "null":
+                nomPrenda = "nombre" + prenda
+                conn = sqlite3.connect('Publicaciones.db')
+                q = f"""SELECT * FROM publicaciones
+                        WHERE {nomPrenda} NOT LIKE ''
+                        ORDER BY id DESC"""
+                x = conn.execute(q)
+                listaPublicaciones = x.fetchall()
+                print(listaPublicaciones)
+        
 
         conn2 = sqlite3.connect('SocialMedia.db')
         q2 = f"""SELECT fotoPerfil from Usuarios
