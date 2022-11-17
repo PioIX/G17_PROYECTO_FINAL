@@ -175,11 +175,13 @@ def filtrarPor():
                 x = conn.execute(q)
                 listaPublicaciones = x.fetchall()
                 print(listaPublicaciones)
-            elif color != "multicolor" or color != "null":
+            elif color != "multicolor" and color != "null":
                 nomPrenda = "nombre" + prenda
+                colPrenda = "color" + prenda
                 conn = sqlite3.connect('Publicaciones.db')
                 q = f"""SELECT * FROM publicaciones
                         WHERE {nomPrenda} NOT LIKE ''
+                        AND {colPrenda} LIKE '{color}'
                         ORDER BY id DESC"""
                 x = conn.execute(q)
                 listaPublicaciones = x.fetchall()
@@ -202,24 +204,24 @@ def filtrarPor():
     elif request.method == "GET":
         return redirect('/home')
 
-@app.route('/profile', methods=['POST','GET'])
-def profile():
-    if request.method == "GET":
-        if session['usuario'] != "":
-            conn2 = sqlite3.connect('SocialMedia.db')
-            q2 = f"""SELECT fotoPerfil from Usuarios
-                    WHERE username = '{session['usuario']}'"""
-            x2 = conn2.execute(q2)
-            
-            imgPerfil = x2.fetchall()
-            print(imgPerfil[0][0])
-            fotoDePerfil = imgPerfil[0][0]
-
-            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
-        elif session['usuario'] == "":
-            return redirect('/')
-    elif request.method == "POST":
-        return redirect('/profile')
+#@app.route('/profile', methods=['POST','GET'])
+#def profile():
+#    if request.method == "GET":
+#        if session['usuario'] != "":
+#            conn2 = sqlite3.connect('SocialMedia.db')
+#            q2 = f"""SELECT fotoPerfil from Usuarios
+#                    WHERE username = '{session['usuario']}'"""
+#            x2 = conn2.execute(q2)
+#            
+#            imgPerfil = x2.fetchall()
+#            print(imgPerfil[0][0])
+#            fotoDePerfil = imgPerfil[0][0]
+#
+#            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
+#        elif session['usuario'] == "":
+#            return redirect('/')
+#    elif request.method == "POST":
+#        return redirect('/profile')
 
 @app.route('/subirFotoPerfil', methods= ['POST', 'GET'])
 def nuevaFoto():
@@ -446,23 +448,26 @@ def logout():
 @app.route('/<username>', methods=['POST', 'GET'])
 def mostrarUsuario(username):
     if request.method == "GET":
-        conn = sqlite3.connect('Publicaciones.db')
-        q = f"""SELECT rutaImagen FROM publicaciones
-                WHERE usuario = '{username}'
-                ORDER BY id DESC"""
-        x = conn.execute(q)
-        listaPublicacionesDelUser = x.fetchall()
+        if username == session['usuario']:
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT rutaImagen FROM publicaciones
+                    WHERE usuario = '{username}'
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicacionesDelUser = x.fetchall()
 
 
-        conn2 = sqlite3.connect('SocialMedia.db')
-        q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE username = '{session['usuario']}'"""
-        x2 = conn2.execute(q2)
-        
-        imgPerfil = x2.fetchall()
-        fotoDePerfil = imgPerfil[0][0]
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            fotoDePerfil = imgPerfil[0][0]
 
-        return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)
+            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)
+        elif username == session['usuario']:
+            pass
     elif request.method == "POST":
         return redirect('/')
 
@@ -498,4 +503,4 @@ def mostrarUsuario(username):
 #if __name__ == '__main__':
 #    socketio.run(app, host='0.0.0.0')
 
-app.run(host='0.0.0.0', port=81)
+app.run(host='10.1.5.141', port=81)
