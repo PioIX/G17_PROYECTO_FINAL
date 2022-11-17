@@ -56,12 +56,10 @@
 {% block principal %}
 <div class="contendor-principal-mensajes">
     <div class="principal-mensajes">
-        <div class="contenedor-mensajes">
-            <ul id="chat" class="box-chat">
+        <div id="chat" class="contenedor-mensajes">
               {% for i in range(listaMensajes|length) %}
-                <li>{{listaMensajes[i][0]}}</li>
+                <p>{{listaMensajes[i][0]}}</p>
               {%endfor%}
-            </ul>
         </div>
     </div>
     <footer class="contenedor-input-mensajes">
@@ -116,7 +114,7 @@
   
     socket.on('enviarMsg', function(json){
         var chat = document.getElementById('chat');
-        var mensajes = document.createElement("li");
+        var mensajes = document.createElement("p");
         mensajes.innerHTML = json;
         chat.appendChild(mensajes);
         console.log(json);
