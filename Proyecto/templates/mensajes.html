@@ -8,7 +8,7 @@
         </div>
 
         <div class="mi-perfil">
-          <p style="color: white; font-size: 45px; margin-top: 20px;">Chat</p>
+          <p style="color: white; font-size: 45px; margin-top: 20px; font-weight: bolder;">Chat</p>
         </div>
 
         <div class="navegacion-perfil">
@@ -54,27 +54,26 @@
 {% endblock %}
 
 {% block principal %}
-<div class="contendor-principal-mensajes">
-    <div class="principal-mensajes">
-        <div id="chat" class="contenedor-mensajes">
-              {% for i in range(listaMensajes|length) %}
-                <p>{{listaMensajes[i][0]}}</p>
-              {%endfor%}
-        </div>
-    </div>
-    <footer class="contenedor-input-mensajes">
-      <input type="text" name="" id="MyMsg" placeholder="Ingresa tu mensaje" class="input-mensajes" maxlength="100">
+<div class="general-container">
+  <div id="chat" class="chat-box-container">
+    {% for i in range(listaMensajes|length) %}
+      <p>{{listaMensajes[i][0]}}</p>
+    {%endfor%}
+  </div>
+  <footer class="contenedor-input-mensajes">
+    <input type="text" name="" id="MyMsg" placeholder="Ingresa tu mensaje" class="input-mensajes" maxlength="100">
+  
+    <button type="button" id="send" class="boton-enviar-mensaje botones" onclick="enviar()">
+  
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+        <path d="M21 3l-6.5 18a0.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a0.55 .55 0 0 1 0 -1l18 -6.5"></path>
+      </svg>
+  
+    </button>
     
-      <button type="button" id="send" class="boton-enviar-mensaje botones" onclick="enviar()">
-    
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send estilo-icono" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <line x1="10" y1="14" x2="21" y2="3"></line>
-          <path d="M21 3l-6.5 18a0.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a0.55 .55 0 0 1 0 -1l18 -6.5"></path>
-        </svg>
-    
-      </button>
-    </footer>
+  </footer>
 </div>
 
 
@@ -117,7 +116,8 @@
         var mensajes = document.createElement("p");
         mensajes.innerHTML = json;
         chat.appendChild(mensajes);
-        console.log(json);
+        chat.scrollTop = chat.scrollHeight;
+
     });
 </script>
 {% endblock %}
