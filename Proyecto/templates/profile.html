@@ -18,9 +18,8 @@
             </svg>
           </div>
 
-          <div class="perfil">
-            <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" 
-            onclick="window.location.href='{{ url_for('mostrarUsuario', username=session['usuario'])}}';">
+          <div class="perfil" onclick="agregarFotoPerfil()">
+            <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1">
           </div>
 
           <div class="flecha-desplegable" id="desplegable" onclick="menuMini()">

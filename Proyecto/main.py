@@ -204,24 +204,31 @@ def filtrarPor():
     elif request.method == "GET":
         return redirect('/home')
 
-#@app.route('/profile', methods=['POST','GET'])
-#def profile():
-#    if request.method == "GET":
-#        if session['usuario'] != "":
-#            conn2 = sqlite3.connect('SocialMedia.db')
-#            q2 = f"""SELECT fotoPerfil from Usuarios
-#                    WHERE username = '{session['usuario']}'"""
-#            x2 = conn2.execute(q2)
-#            
-#            imgPerfil = x2.fetchall()
-#            print(imgPerfil[0][0])
-#            fotoDePerfil = imgPerfil[0][0]
-#
-#            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
-#        elif session['usuario'] == "":
-#            return redirect('/')
-#    elif request.method == "POST":
-#        return redirect('/profile')
+@app.route('/profile', methods=['POST','GET'])
+def profile():
+    if request.method == "GET":
+        if session['usuario'] != "":
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            print(imgPerfil[0][0])
+            fotoDePerfil = imgPerfil[0][0]
+
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT rutaImagen FROM publicaciones
+                    WHERE usuario = '{session['usuario']}'
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicacionesDelUser = x.fetchall()
+
+            return render_template("profile.html", fotoDePerfil = fotoDePerfil, nomPerfil = "Mi Perfil", listaPublicacionesDelUser = listaPublicacionesDelUser)
+        elif session['usuario'] == "":
+            return redirect('/')
+    elif request.method == "POST":
+        return redirect('/profile')
 
 @app.route('/subirFotoPerfil', methods= ['POST', 'GET'])
 def nuevaFoto():
