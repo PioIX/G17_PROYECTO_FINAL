@@ -280,19 +280,22 @@ def nuevaImagen():
             return redirect('/home')
         else:
             filename = secure_filename(imagen.filename)
-            if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)):
+            if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], filename)) == True:
                 numb = 1
+                print("hola")
                 # Separa el nombre del archivo de su extensión colocando el numero en el medio (al final del nombre)
                 newName = "{0}_{2}{1}".format(*osPath.splitext(filename) + (numb,))
-
+                print(newName)
                 # Si existe un archivo con ese nombre incrementa el numero
-                if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)):
-                    numb += 1
-                else:
-                    file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)
-                    imagen.save(file_path)
-                    print(newName)
-                    img = "./static/" + path2 + '/' + newName + ""
+                while osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)):
+                    if osPath.exists(osPath.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)):
+                        numb += 1
+                        print("Esta sumando")
+                        newName = "{0}_{2}{1}".format(*osPath.splitext(filename) + (numb,))
+                        file_path = os.path.join(app.config['UPLOAD_FOLDER_Publicacion'], newName)
+                        #imagen.save(file_path)
+                        print(newName)
+                        img = "./static/" + path2 + '/' + newName + ""   
             else:
                 print("hola")
                 filename = secure_filename(imagen.filename)
@@ -321,7 +324,7 @@ def nuevaImagen():
             precioAbrigo = 0
             
         if precioPantalon != "":
-            pass
+            pass7
         else:
             precioPantalon = 0
         
