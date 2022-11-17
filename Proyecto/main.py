@@ -360,7 +360,14 @@ def mensajes():
             imgPerfil = x2.fetchall()
             fotoDePerfil = imgPerfil[0][0]
 
-            return render_template('mensajes.html', fotoDePerfil = fotoDePerfil)
+            conn = sqlite3.connect('Chat.db')
+            q = f"""SELECT mensaje FROM Mensajes
+                    ORDER BY id DESC
+                    LIMIT 25"""
+            listaMensajes = conn.execute(q).fetchall()
+            print(listaMensajes.reverse())
+
+            return render_template('mensajes.html', fotoDePerfil = fotoDePerfil, listaMensajes = listaMensajes)
         elif session['usuario'] == "":
             return redirect('/')
     elif request.method == "POST":
@@ -514,6 +521,12 @@ def on_join(data):
 def handle_message(json, sala):
     json = str(session['usuario']) + ": " + str(json)
     room = sala
+    
+    conn = sqlite3.connect('Chat.db')
+    q = f"""INSERT INTO Mensajes(mensaje) VALUES('{json}')"""
+    conn.execute(q)
+    conn.commit()
+    conn.close()
     emit('enviarMsg', str(json), to=room)
 
 @socketio.on('leave')
