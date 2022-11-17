@@ -148,9 +148,10 @@ def filtrarPor():
         color = request.form['colorFiltrar']
 
         print(prenda)
+        print(color)
 
         if prenda == "null":
-            if color != "null":
+            if color != "null" and color != "multicolor":
                 conn = sqlite3.connect('Publicaciones.db')
                 q = f"""SELECT * FROM publicaciones
                         WHERE colorRemera LIKE '{color}'
@@ -161,13 +162,10 @@ def filtrarPor():
                 listaPublicaciones = x.fetchall()
                 print(listaPublicaciones)
             elif color == "null":
-                conn = sqlite3.connect('Publicaciones.db')
-                q = f"""SELECT * FROM publicaciones
-                        ORDER BY id DESC"""
-                x = conn.execute(q)
-                listaPublicaciones = x.fetchall()
-                print(listaPublicaciones)
-        else:
+                return redirect('/home')
+            elif color == "multicolor":
+                return redirect('/home')
+        elif prenda != "null":
             if color == "multicolor":
                 nomPrenda = "nombre" + prenda
                 conn = sqlite3.connect('Publicaciones.db')
@@ -177,7 +175,7 @@ def filtrarPor():
                 x = conn.execute(q)
                 listaPublicaciones = x.fetchall()
                 print(listaPublicaciones)
-            elif color != "multicolor" and color != "null":
+            elif color != "multicolor" or color != "null":
                 nomPrenda = "nombre" + prenda
                 conn = sqlite3.connect('Publicaciones.db')
                 q = f"""SELECT * FROM publicaciones
