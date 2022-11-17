@@ -328,7 +328,7 @@ def nuevaImagen():
             precioAbrigo = 0
             
         if precioPantalon != "":
-            pass7
+            pass
         else:
             precioPantalon = 0
         
@@ -524,6 +524,6 @@ def on_leave(data):
     send(username + ' has left the room.', to=room)
 
 if __name__ == '__main__':
-    socketio.run(app, host='10.1.5.141')
+    socketio.run(app, host='0.0.0.0')
 
 #app.run(host='10.1.5.141', port=81)
