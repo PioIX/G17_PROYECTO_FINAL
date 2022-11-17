@@ -694,6 +694,11 @@ hr{
     margin-top: 10px;
     color: var(--negro);
     font-weight: bolder;
-    
+    background-color: white;
+    list-style: none;
+}
+
+.box-chat li{
+    padding-left: 5px;
 }
 /*---------------------*/
