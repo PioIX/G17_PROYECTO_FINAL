@@ -224,7 +224,7 @@ def profile():
             x = conn.execute(q)
             listaPublicacionesDelUser = x.fetchall()
 
-            return render_template("profile.html", fotoDePerfil = fotoDePerfil, nomPerfil = "Mi Perfil", listaPublicacionesDelUser = listaPublicacionesDelUser)
+            return render_template("profile.html", fotoDePerfil = fotoDePerfil, nomPerfil = "Mi Perfil", listaPublicacionesDelUser = listaPublicacionesDelUser, editarPerfil = True)
         elif session['usuario'] == "":
             return redirect('/')
     elif request.method == "POST":
@@ -482,7 +482,7 @@ def mostrarUsuario(username):
             fotoDePerfil = imgPerfil[0][0]
 
 
-            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = username)
+            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = username, editarPerfil = False)
         elif username == session['usuario']:
             conn = sqlite3.connect('Publicaciones.db')
             q = f"""SELECT rutaImagen FROM publicaciones
@@ -501,7 +501,7 @@ def mostrarUsuario(username):
             fotoDePerfil = imgPerfil[0][0]
 
 
-            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = "Mi perfil")
+            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = "Mi perfil", editarPerfil = True)
         elif username == session['usuario']:
             pass
     elif request.method == "POST":

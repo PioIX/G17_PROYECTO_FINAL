@@ -18,9 +18,15 @@
             </svg>
           </div>
 
-          <div class="perfil" onclick="agregarFotoPerfil()">
-            <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1">
-          </div>
+          {% if editarPerfil == True %}
+            <div class="perfil" onclick="agregarFotoPerfil()">
+              <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1">
+            </div>
+          {% elif editarPerfil == False %}
+            <div class="perfil">
+              <img src="{{fotoDePerfil}}" alt="" class="foto-de-perfil-1" onclick="window.location.href='{{ url_for('profile')}}';">
+            </div>
+          {%endif%}
 
           <div class="flecha-desplegable" id="desplegable" onclick="menuMini()">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round" id="flecha1">
