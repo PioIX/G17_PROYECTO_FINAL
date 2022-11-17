@@ -134,7 +134,7 @@
 
             </div>
             <div id="cont-filtrar-por" style="display: none;">
-              <form action="">
+              <form action="/filtrarPor" method="POST">
                 <div class="secctions" style="flex-direction: column";>
                   <div class="labelss">
                     <label>Prenda</label>
@@ -143,9 +143,9 @@
                   <div class="selects">
                     <select name="prendaFiltrar" id="prendaFiltrar" style="width: 60%;" class="selectPCS">
                       <option value="null">null</option>
-                      <option value="remera">Remera</option>
-                      <option value="remera">Abrigo</option>
-                      <option value="remera">Pantalon</option>
+                      <option value="Remera">Remera</option>
+                      <option value="Abrigo">Abrigo</option>
+                      <option value="Pantalon">Pantalon</option>
                     </select>
                     <select name="colorFiltrar" id="colorFiltrar" style="width: 30%;" class="selectPCS" onchange="colorElegido(this,'Filtrar')"> 
                       <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
@@ -159,6 +159,7 @@
                         <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
                         <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
                         <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                        <option id= "blanco" class="opciones" value="%%" style="background-color: rgb(255, 255, 255)">Multicolor</option>
                     </select>
                   </div>
                 </div>
@@ -464,7 +465,7 @@
 
             </div>
             <div id="cont-filtrar-por" style="display: none;">
-              <form action="">
+              <form action="/filtrarPor" method="POST">
                 <div class="secctions" style="flex-direction: column";>
                   <div class="labelss">
                     <label>Prenda</label>
@@ -473,9 +474,9 @@
                   <div class="selects">
                     <select name="prendaFiltrar" id="prendaFiltrar" style="width: 60%;" class="selectPCS">
                       <option value="null">null</option>
-                      <option value="remera">Remera</option>
-                      <option value="remera">Abrigo</option>
-                      <option value="remera">Pantalon</option>
+                      <option value="Remera">Remera</option>
+                      <option value="Abrigo">Abrigo</option>
+                      <option value="Pantalon">Pantalon</option>
                     </select>
                     <select name="colorFiltrar" id="colorFiltrar" style="width: 30%;" class="selectPCS" onchange="colorElegido(this,'Filtrar')"> 
                       <option id="null" class="opcion-null" value="null" style="background-color: #ffff">null</option>
@@ -489,6 +490,7 @@
                         <option id= "amarillo" class="opciones" value="amarillo" style="background-color: #E6D327"></option>
                         <option id= "gris" class="opciones" value="gris" style="background-color: #ADADAD"></option>
                         <option id= "blanco" class="opciones" value="blanco" style="background-color: #ffff"></option>
+                        <option id= "blanco" class="opciones" value="%%" style="background-color: rgb(255, 255, 255)">Multicolor</option>
                     </select>
                   </div>
                 </div>

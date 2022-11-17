@@ -141,6 +141,50 @@ def home():
     elif request.method == "POST":
         return redirect('/home')
 
+@app.route('/filtrarPor', methods=['POST','GET'])
+def filtrarPor():
+    if request.method == "POST":
+        prenda = request.form['prendaFiltrar']
+        color = request.form['colorFiltrar']
+
+        print(prenda)
+
+        if prenda == "null":
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT * FROM publicaciones
+                    WHERE colorRemera LIKE '{color}'
+                    OR colorAbrigo LIKE '{color}'
+                    OR colorPantalon LIKE '{color}' 
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicaciones = x.fetchall()
+            print(listaPublicaciones)
+        else:
+            prenda2 = "color" + prenda
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT * FROM publicaciones
+                    WHERE {prenda2} LIKE '{color}'
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicaciones = x.fetchall()
+            print(listaPublicaciones)
+
+        conn2 = sqlite3.connect('SocialMedia.db')
+        q2 = f"""SELECT fotoPerfil from Usuarios
+                WHERE username = '{session['usuario']}'"""
+        x2 = conn2.execute(q2)
+        imgPerfil = x2.fetchall()
+        fotoDePerfil = imgPerfil[0][0]
+
+        
+        q4 = f"""SELECT * from Usuarios"""
+        x4 = conn2.execute(q4)
+        listaCompleta = x4.fetchall()
+
+        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
+    elif request.method == "GET":
+        return redirect('/home')
+
 @app.route('/profile', methods=['POST','GET'])
 def profile():
     if request.method == "GET":
@@ -285,7 +329,14 @@ def nuevaImagen():
 def mensajes():
     if request.method == "GET":
         if session['usuario'] != "":
-            return render_template('mensajes.html')
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            imgPerfil = x2.fetchall()
+            fotoDePerfil = imgPerfil[0][0]
+
+            return render_template('mensajes.html', fotoDePerfil = fotoDePerfil)
         elif session['usuario'] == "":
             return redirect('/')
     elif request.method == "POST":
@@ -293,31 +344,34 @@ def mensajes():
 
 @app.route('/buscarNombre', methods=['POST', 'GET'])
 def buscarUsuario():
-    search_term = request.form
-    search = search_term["value"]
-    
-    conn = sqlite3.connect('SocialMedia.db')
-    conn2 = sqlite3.connect('Publicaciones.db')
+    if request.method == "POST":
+        search_term = request.form
+        search = search_term["value"]
+        
+        conn = sqlite3.connect('SocialMedia.db')
+        conn2 = sqlite3.connect('Publicaciones.db')
 
-    q3 = f"""SELECT * FROM publicaciones
-            WHERE usuario LIKE '%{search}%'
-            ORDER BY id DESC"""
-    x3 = conn2.execute(q3)
-    listaPublicaciones = x3.fetchall()
-    
+        q3 = f"""SELECT * FROM publicaciones
+                WHERE usuario LIKE '%{search}%'
+                ORDER BY id DESC"""
+        x3 = conn2.execute(q3)
+        listaPublicaciones = x3.fetchall()
+        print(listaPublicaciones)
 
-    q4 = f"""SELECT * from Usuarios"""
-    x4 = conn.execute(q4)
-    listaCompleta = x4.fetchall()
+        q4 = f"""SELECT * from Usuarios"""
+        x4 = conn.execute(q4)
+        listaCompleta = x4.fetchall()
 
-    q5 = f"""SELECT fotoPerfil from Usuarios
-            WHERE username = '{session['usuario']}'"""
-    x5 = conn.execute(q5)
-    
-    imgPerfil = x5.fetchall()
-    fotoDePerfil = imgPerfil[0][0]
+        q5 = f"""SELECT fotoPerfil from Usuarios
+                WHERE username = '{session['usuario']}'"""
+        x5 = conn.execute(q5)
+        
+        imgPerfil = x5.fetchall()
+        fotoDePerfil = imgPerfil[0][0]
 
-    return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
+        return render_template("base.html", fotoDePerfil = fotoDePerfil, listaPublicaciones = listaPublicaciones, listaCompleta = listaCompleta, user = session['usuario'])
+    elif request.method == "GET":
+        return redirect('/home')
     # Falta hacer que cambie el HTML, sino hacer otra página para el buscar #
 
 @app.route('/admin', methods=['POST', 'GET'])
