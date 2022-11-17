@@ -515,7 +515,7 @@ hr{
     grid-template-columns: auto auto auto;
     column-gap: 20px;
     row-gap: 10px;
-    margin-top: 100px;
+    margin-top: 200px;
 }
 
 .foto{
@@ -631,6 +631,7 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
 
 .principal-mensajes{
@@ -682,9 +683,14 @@ hr{
 .contenedor-mensajes{
     width: 80%;
     height: 700px;
-    background-color: var(--blanco);
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+
+.box-chat{
+    resize: none;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 /*---------------------*/

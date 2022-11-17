@@ -8,7 +8,7 @@ from os import path as osPath
 import sqlite3
 
 from werkzeug.utils import secure_filename
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 UPLOAD_FOLDER_FotoPerfil = './Proyecto/static/img/perfil'
 UPLOAD_FOLDER_Publicacion = './Proyecto/static/img'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -19,10 +19,10 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER_FotoPerfil'] = UPLOAD_FOLDER_FotoPerfil
 app.config['UPLOAD_FOLDER_Publicacion'] = UPLOAD_FOLDER_Publicacion
 app.secret_key = "asdasdazsdawefdfascacs"
-#socketio = SocketIO(app)
+socketio = SocketIO(app)
 
-#if __name__ == '__main__':
-#    socketio.run(app)
+if __name__ == '__main__':
+   socketio.run(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
@@ -175,11 +175,13 @@ def filtrarPor():
                 x = conn.execute(q)
                 listaPublicaciones = x.fetchall()
                 print(listaPublicaciones)
-            elif color != "multicolor" or color != "null":
+            elif color != "multicolor" and color != "null":
                 nomPrenda = "nombre" + prenda
+                colPrenda = "color" + prenda
                 conn = sqlite3.connect('Publicaciones.db')
                 q = f"""SELECT * FROM publicaciones
                         WHERE {nomPrenda} NOT LIKE ''
+                        AND {colPrenda} LIKE '{color}'
                         ORDER BY id DESC"""
                 x = conn.execute(q)
                 listaPublicaciones = x.fetchall()
@@ -202,24 +204,24 @@ def filtrarPor():
     elif request.method == "GET":
         return redirect('/home')
 
-@app.route('/profile', methods=['POST','GET'])
-def profile():
-    if request.method == "GET":
-        if session['usuario'] != "":
-            conn2 = sqlite3.connect('SocialMedia.db')
-            q2 = f"""SELECT fotoPerfil from Usuarios
-                    WHERE username = '{session['usuario']}'"""
-            x2 = conn2.execute(q2)
-            
-            imgPerfil = x2.fetchall()
-            print(imgPerfil[0][0])
-            fotoDePerfil = imgPerfil[0][0]
-
-            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
-        elif session['usuario'] == "":
-            return redirect('/')
-    elif request.method == "POST":
-        return redirect('/profile')
+#@app.route('/profile', methods=['POST','GET'])
+#def profile():
+#    if request.method == "GET":
+#        if session['usuario'] != "":
+#            conn2 = sqlite3.connect('SocialMedia.db')
+#            q2 = f"""SELECT fotoPerfil from Usuarios
+#                    WHERE username = '{session['usuario']}'"""
+#            x2 = conn2.execute(q2)
+#            
+#            imgPerfil = x2.fetchall()
+#            print(imgPerfil[0][0])
+#            fotoDePerfil = imgPerfil[0][0]
+#
+#            return render_template("profile.html", fotoDePerfil = fotoDePerfil)
+#        elif session['usuario'] == "":
+#            return redirect('/')
+#    elif request.method == "POST":
+#        return redirect('/profile')
 
 @app.route('/subirFotoPerfil', methods= ['POST', 'GET'])
 def nuevaFoto():
@@ -448,56 +450,80 @@ def logout():
 @app.route('/<username>', methods=['POST', 'GET'])
 def mostrarUsuario(username):
     if request.method == "GET":
-        conn = sqlite3.connect('Publicaciones.db')
-        q = f"""SELECT rutaImagen FROM publicaciones
-                WHERE usuario = '{username}'
-                ORDER BY id DESC"""
-        x = conn.execute(q)
-        listaPublicacionesDelUser = x.fetchall()
+        if username != session['usuario']:
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT rutaImagen FROM publicaciones
+                    WHERE usuario = '{username}'
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicacionesDelUser = x.fetchall()
 
 
-        conn2 = sqlite3.connect('SocialMedia.db')
-        q2 = f"""SELECT fotoPerfil from Usuarios
-                WHERE username = '{session['usuario']}'"""
-        x2 = conn2.execute(q2)
-        
-        imgPerfil = x2.fetchall()
-        fotoDePerfil = imgPerfil[0][0]
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            fotoDePerfil = imgPerfil[0][0]
 
-        return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil)
+
+            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = username)
+        elif username == session['usuario']:
+            conn = sqlite3.connect('Publicaciones.db')
+            q = f"""SELECT rutaImagen FROM publicaciones
+                    WHERE usuario = '{username}'
+                    ORDER BY id DESC"""
+            x = conn.execute(q)
+            listaPublicacionesDelUser = x.fetchall()
+
+
+            conn2 = sqlite3.connect('SocialMedia.db')
+            q2 = f"""SELECT fotoPerfil from Usuarios
+                    WHERE username = '{session['usuario']}'"""
+            x2 = conn2.execute(q2)
+            
+            imgPerfil = x2.fetchall()
+            fotoDePerfil = imgPerfil[0][0]
+
+
+            return render_template("profile.html", listaPublicacionesDelUser = listaPublicacionesDelUser, fotoDePerfil = fotoDePerfil, nomPerfil = "Mi perfil")
+        elif username == session['usuario']:
+            pass
     elif request.method == "POST":
         return redirect('/')
 
-#@socketio.on('connect')
-#def test_connect():
-#    print('Client connected')
+@socketio.on('connect')
+def test_connect():
+    print('Client connected')
  
-#@socketio.on('disconnect')
-#def test_disconnect():
-#    print('Client disconnected')
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
 
-#@socketio.on('join')
-#def on_join(data):
-#    username = session.get("username")
-#    room = data['room']
-#    session['room'] = data['room']
-#    join_room(room)
-#    print(username + ' has entered the room.')
-#    send(username + ' has entered the room.', to=room)
+@socketio.on('join')
+def on_join(data):
+    username = session.get("usuario")
+    room = data['room']
+    session['room'] = data['room']
+    join_room(room)
+    print(username + ' has entered the room.')
+    send(username + ' has entered the room.', to=room)
 
-#@socketio.on('recibirMsg')
-#def handle_message(json):
-#    json = str(session['username']) + ": " + str(json)
-#    emit('enviarMsg', str(json), to=session['room'])
+@socketio.on('recibirMsg')
+def handle_message(json, sala):
+    json = str(session['usuario']) + ": " + str(json)
+    room = sala
+    emit('enviarMsg', str(json), to=room)
 
-#@socketio.on('leave')
-#def on_leave(data):
-#    username = session.get("username")
-#    room = data["room"]
-#    leave_room(room)
-#    send(username + ' has left the room.', to=room)
+@socketio.on('leave')
+def on_leave(data):
+    username = session.get("usuario")
+    room = data["room"]
+    leave_room(room)
+    send(username + ' has left the room.', to=room)
 
-#if __name__ == '__main__':
-#    socketio.run(app, host='0.0.0.0')
+if __name__ == '__main__':
+    socketio.run(app, host='10.1.5.141')
 
-app.run(host='0.0.0.0', port=81)
+#app.run(host='10.1.5.141', port=81)
