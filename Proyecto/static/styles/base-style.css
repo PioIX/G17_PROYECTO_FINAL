@@ -290,6 +290,11 @@ main{
     font-size: 1.2rem;
     font-weight: bolder;
     color:var(--blanco);
+    
+}
+
+.estilo-nombre-usuario:hover{
+    cursor: pointer;
 }
 
 .iconos{
